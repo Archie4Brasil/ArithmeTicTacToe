@@ -4,31 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
-
-
-Button a1,a2,a3,g1x1,g1x2,g1x3,
-        g2x1,g2x2,g2x3,
-        g3x1,g3x2,g3x3;
-TextView rN1,rN2,sign;
-    String math;
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
     }
 
 
