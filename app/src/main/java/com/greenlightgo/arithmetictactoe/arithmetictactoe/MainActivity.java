@@ -8,11 +8,17 @@ import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 
+    private static int correctGuesses = 0, totalGuesses = 0, roundFromMain,
+            firstNumber, secondNumber, randomOne, randomTwo, answer, operand,
+            range, min, pause;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+
 
 
     @Override
