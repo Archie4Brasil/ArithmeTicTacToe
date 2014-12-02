@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/textView"
-            android:text="Top Display Instructions"
+            android:text="Please Select Position!"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
