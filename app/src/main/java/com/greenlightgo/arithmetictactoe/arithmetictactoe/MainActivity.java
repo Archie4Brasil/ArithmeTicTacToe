@@ -1,126 +1,98 @@
 package com.greenlightgo.arithmetictactoe.arithmetictactoe;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import  android.widget.Button;
-import android.graphics.drawable.ColorDrawable;
-import android.widget.EditText;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 
+public class MainActivity extends Activity {
 
-public class MainActivity extends Activity implements View.OnClickListener {
-    Button b1,b2,b3,b4,b5,b6,b7,b8,b9;  //Grid Buttons
-    private int number1;                //First Operand
-    private int number2;                //Second Operand
-    private ArrayList<Integer> answers; //ArrayList contains 3 answer options including the correct answer
-    private TextView msgText;           //Textview to display the question or any message
-
-    private int correctAnswer;          //No of correct answer
-    private int correctAnswers = 0;
-    private int incorrectAnswers = 0;
-    private String operator;
-    String buttonInitColor ="";
-    String buttonClickColor ="";
-    String buttonCorrectAnsColor ="";
-    String buttonIncorrectAnsColor ="";
-
-
-
+    Button a1,a2,a3,g1x1,g1x2,g1x3,
+            g2x1,g2x2,g2x3,
+            g3x1,g3x2,g3x3;
+    TextView rN1,rN2,sign;
+    String math;
+    private static int correctGuesses = 0, totalGuesses = 0, firstNumber, secondNumber,
+            randomOne, randomTwo, answer, range, min;
+    private String operand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        b1 = (Button) findViewById(R.id.grid1x1);
-        b2 = (Button) findViewById(R.id.grid1x2);
-        b3 = (Button) findViewById(R.id.grid1x3);
-        b4 = (Button) findViewById(R.id.grid2x1);
-        b5 = (Button) findViewById(R.id.grid2x1);
-        b6 = (Button) findViewById(R.id.grid2x1);
-        b7 = (Button) findViewById(R.id.grid3x1);
-        b8 = (Button) findViewById(R.id.grid3x1);
-        b9 = (Button) findViewById(R.id.grid3x1);
-        b1.setOnClickListener(this);
-        b2.setOnClickListener(this);
-        b3.setOnClickListener(this);
-        b4.setOnClickListener(this);
-        b5.setOnClickListener(this);
-        b6.setOnClickListener(this);
-        b7.setOnClickListener(this);
-        b8.setOnClickListener(this);
-        b9.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        Button bClick = (Button)v;
-        ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
-        int colorId = buttonColor.getColor();
-        if(colorId == Color.parseColor(buttonInitColor )) {
-            displayEditText();
-            displayAnsButton();
+    // random generator of numbers of arithmetic problems
+    public void artihMagic() {
 
-            setGridButtonColor(bClick);
+        // setting random first and second number
+        firstNumber = (int) (Math.random() * 10) + 1;
+        secondNumber = (int) (Math.random() * 10) + 1;
+
+        // random cases for different problems from addition to division
+        int i = (int)   (Math.random() *4);
+        switch (i) {
+            case 0:
+                operand = "+";
+                answer = firstNumber + secondNumber;
+                min = 2;
+                range = (20 - min) + 1;
+                break;
+            case 1:
+                operand = "-";
+                answer = firstNumber - secondNumber;
+                min = -9;
+                range = (9 - min) + 1;
+                break;
+            case 2:
+                operand = "*";
+                answer = firstNumber * secondNumber;
+                min = 1;
+                range = (100 - min) + 1;
+                break;
+            case 3:
+                operand = "/";
+                answer = firstNumber / secondNumber;
+                min = 0;
+                range = (10 - min) + 1;
+                break;
         }
-        else
-        {
-            msgText.setText("You have already clicked the button");
+
+        // generation and check of possible random answers within range of operation
+        randomOne = (int) ((Math.random() * range) + min);
+        randomTwo = (int) ((Math.random() * range) + min);
+        while (randomOne == randomTwo || randomOne == (answer)) {
+            randomOne = (int) ((Math.random() * range) + min);
+        }
+
+        while (randomOne == randomTwo || randomTwo == (answer)) {
+            randomTwo = (int) (Math.random() * range) + min;
         }
     }
-    public void setGridButtonColor(Button bClick)
-    {
-        bClick.setBackgroundColor(Color.parseColor(buttonClickColor));
-    }
-    public void setGridButtonColorAnsOnClick(Button b)
-    {
-        if(checkAnswer())
-            b.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-        else
-            b.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-    }
-    public void displayEditText()
-    {
 
-    }
-    public void displayAnsButton()
-    {
 
-    }
-    public boolean checkAnswer()
-    {
-        boolean correctAns =true;
-        return correctAns;
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        number1 = savedInstanceState.getInt("number1");
-        number2 = savedInstanceState.getInt("number2");
-        correctAnswer = savedInstanceState.getInt("correctAnswer");
-        correctAnswers = savedInstanceState.getInt("correctAnswers");
-        incorrectAnswers = savedInstanceState.getInt("incorrectAnswers");
-        answers = savedInstanceState.getIntegerArrayList("answers");
-        operator = savedInstanceState.getString("operator");
-        super.onRestoreInstanceState(savedInstanceState);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("number1", number1);
-        outState.putInt("number2", number2);
-        outState.putInt("correctAnswer", correctAnswer);
-        outState.putInt("correctAnswers", correctAnswers);
-        outState.putInt("incorrectAnswers", incorrectAnswers);
-        outState.putIntegerArrayList("answers", answers);
-        outState.putString("operator", operator);
-
-
-
-    }
-
-
 }
