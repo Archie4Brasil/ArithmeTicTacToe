@@ -1,18 +1,17 @@
 package com.greenlightgo.arithmetictactoe.arithmetictactoe;
 
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import  android.widget.Button;
-import android.graphics.drawable.ColorDrawable;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements View.OnClickListener {
 
+public class MainActivity extends Activity implements View.OnClickListener {
     Button b1,b2,b3,b4,b5,b6,b7,b8,b9;  //Grid Buttons
+    Button ansButton1,ansButton2,ansButton3;
     private int number1;                //First Operand
     private int number2;                //Second Operand
     private ArrayList<Integer> answers; //ArrayList contains 3 answer options including the correct answer
@@ -26,20 +25,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     String buttonClickColor ="";
     String buttonCorrectAnsColor ="";
     String buttonIncorrectAnsColor ="";
+    String QuestionString="";
+    private TextView questionText ;
+    int selectedButton=-1;
 
-    Button a1,a2,a3,g1x1,g1x2,g1x3,
-            g2x1,g2x2,g2x3,
-            g3x1,g3x2,g3x3;
-    TextView rN1,rN2,sign;
-    String math;
-    private static int firstNumber, secondNumber, randomOne, randomTwo, answer, range, min;
-    private String operand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        questionText = (TextView)findViewById(R.id.textView);
         b1 = (Button) findViewById(R.id.grid1x1);
         b2 = (Button) findViewById(R.id.grid1x2);
         b3 = (Button) findViewById(R.id.grid1x3);
@@ -49,6 +44,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         b7 = (Button) findViewById(R.id.grid3x1);
         b8 = (Button) findViewById(R.id.grid3x1);
         b9 = (Button) findViewById(R.id.grid3x1);
+        ansButton1 = (Button) findViewById(R.id.answers1);
+        ansButton2 = (Button) findViewById(R.id.answers2);
+        ansButton3 = (Button) findViewById(R.id.answers3);
+
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
         b3.setOnClickListener(this);
@@ -58,64 +57,121 @@ public class MainActivity extends Activity implements View.OnClickListener {
         b7.setOnClickListener(this);
         b8.setOnClickListener(this);
         b9.setOnClickListener(this);
+        QuestionString = questionText.getText().toString();
+        String[] mathOp= QuestionString.split(" ");
+       number1 = Integer.parseInt(mathOp[0]);
+
+        ansButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ansButton1 = (Button)view;
+                if (ansButton1.getText().equals(Integer.toString(correctAnswer)))
+                    buttonSelection();
+            }
+        });
+        ansButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ansButton1 = (Button)view;
+                if (ansButton2.getText().equals(Integer.toString(correctAnswer)))
+                    buttonSelection();
+            }
+
+
+        });
+        ansButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ansButton3 = (Button)view;
+                if (ansButton3.getText().equals(Integer.toString(correctAnswer)))
+                    buttonSelection();
+            }
+
+
+        });
     }
+    public int buttonSelection(){
+        Button b;
+        if(selectedButton==1) {
+            b = (Button) findViewById(R.id.grid1x1);
+            setGridButtonColor(b);
 
-    // random generator of numbers of arithmetic problems
-    public void artihMagic() {
-
-        // setting random first and second number
-        firstNumber = (int) (Math.random() * 10) + 1;
-        secondNumber = (int) (Math.random() * 10) + 1;
-
-        // random cases for different problems from addition to division
-        int i = (int)   (Math.random() *4);
-        switch (i) {
-            case 0:
-                operand = "+";
-                answer = firstNumber + secondNumber;
-                min = 2;
-                range = (20 - min) + 1;
-                break;
-            case 1:
-                operand = "-";
-                answer = firstNumber - secondNumber;
-                min = -9;
-                range = (9 - min) + 1;
-                break;
-            case 2:
-                operand = "*";
-                answer = firstNumber * secondNumber;
-                min = 1;
-                range = (100 - min) + 1;
-                break;
-            case 3:
-                operand = "/";
-                answer = firstNumber / secondNumber;
-                min = 0;
-                range = (10 - min) + 1;
-                break;
+        }else if(selectedButton==2) {
+            b = (Button) findViewById(R.id.grid1x2);
+            setGridButtonColor(b);
+        }else if(selectedButton==3) {
+            b = (Button) findViewById(R.id.grid1x3);
+            setGridButtonColor(b);
+        }else if(selectedButton==4) {
+            b = (Button) findViewById(R.id.grid2x1);
+            setGridButtonColor(b);
+        }else if(selectedButton==5) {
+            b = (Button) findViewById(R.id.grid2x2);
+            setGridButtonColor(b);
+        }else if(selectedButton==6) {
+            b = (Button) findViewById(R.id.grid2x3);
+            setGridButtonColor(b);
+        }else if(selectedButton==7) {
+            b = (Button) findViewById(R.id.grid3x1);
+            setGridButtonColor(b);
+        }else if(selectedButton==8) {
+            b = (Button) findViewById(R.id.grid3x2);
+            setGridButtonColor(b);
+        }else if(selectedButton==9) {
+            b = (Button) findViewById(R.id.grid3x3);
+            setGridButtonColor(b);
         }
 
-        // generation and check of possible random answers within range of operation
-        randomOne = (int) ((Math.random() * range) + min);
-        randomTwo = (int) ((Math.random() * range) + min);
-        while (randomOne == randomTwo || randomOne == (answer)) {
-            randomOne = (int) ((Math.random() * range) + min);
-        }
+        int i=0;
+        return i;
 
-        while (randomOne == randomTwo || randomTwo == (answer)) {
-            randomTwo = (int) (Math.random() * range) + min;
-        }
     }
-
 
     @Override
     public void onClick(View v) {
         Button bClick = (Button)v;
-        ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
+        switch (bClick.getId()) {
+            case R.id.grid1x1: {
+                selectedButton = 0;
+                break;
+            }
+            case R.id.grid1x2: {
+                selectedButton = 1;
+                break;
+            }
+            case R.id.grid1x3: {
+                selectedButton = 2;
+                break;
+            }
+            case R.id.grid2x1: {
+                selectedButton = 3;
+                break;
+            }
+            case R.id.grid2x2: {
+                selectedButton = 4;
+                break;
+            }
+            case R.id.grid2x3: {
+                selectedButton = 5;
+                break;
+            }
+            case R.id.grid3x1: {
+                selectedButton = 6;
+                break;
+            }
+            case R.id.grid3x2: {
+                selectedButton = 7;
+                break;
+            }
+            case R.id.grid3x3: {
+                selectedButton = 8;
+                break;
+            }
+
+       /* ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
         int colorId = buttonColor.getColor();
         if(colorId == Color.parseColor(buttonInitColor )) {
-            displayEditText();
+            displayText();
             displayAnsButton();
 
             setGridButtonColor(bClick);
@@ -123,34 +179,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
         else
         {
             msgText.setText("You have already clicked the button");
+        }*/
         }
     }
-
     public void setGridButtonColor(Button bClick)
     {
         bClick.setBackgroundColor(Color.parseColor(buttonClickColor));
     }
-
-    public void setGridButtonColorAnsOnClick(Button b)
+   /* public void setGridButtonColorAnsOnClick(Button b)
     {
         if(checkAnswer())
             b.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
         else
             b.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-    }
-
-    public void displayEditText()
+    }*/
+    public void displayText()
     {
-
+        questionText.setText(QuestionString);
     }
-
     public void displayAnsButton()
     {
 
     }
-
-    public boolean checkAnswer()
+    public boolean getAnswer(int number1, int number2, String op)
     {
+
+
         boolean correctAns =true;
         return correctAns;
 
@@ -180,4 +234,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     }
+
+
 }
