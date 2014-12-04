@@ -1,17 +1,17 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Black.NoTitleBar">
+    <style name="AppTheme" parent="android:Theme.Holo.NoActionBar.Fullscreen">
         <!-- Customize your theme here. -->
 
     </style>
 
-    <style name="TextFormat" parent="android:Theme.Black.NoTitleBar">
+    <style name="TextFormat" parent="android:Theme.Holo.NoActionBar.Fullscreen">
         <item name="android:textSize">25dip</item>
     </style>
 
-    <style name="Answerbuttons" parent="android:Theme.Black.NoTitleBar">
-        <item name="android:layout_width">85dip</item>
+    <style name="Answerbuttons" parent="android:Theme.Holo.NoActionBar.Fullscreen">
+        <item name="android:layout_width">100dip</item>
     </style>
 
 </resources>
