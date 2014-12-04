@@ -18,7 +18,7 @@
     <LinearLayout
         android:id="@+id/TopLayout"
         android:layout_weight="1"
-        android:layout_width="wrap_content"
+        android:layout_width="150dip"
         android:layout_height="match_parent"
         android:gravity="left"
         android:orientation="vertical">
@@ -27,9 +27,10 @@
             android:id="@+id/textView"
             android:text="Top Display Instructions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="75dip"
             android:layout_weight="1"
-            android:gravity="center"/>
+            android:gravity="center"
+            style="@style/TextFormat"/>
 
         <LinearLayout
             android:id="@+id/bottonLayout"
@@ -40,28 +41,31 @@
             android:gravity="center">
 
             <Button
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Answer 1"
                 android:id="@+id/answers1"
                 android:layout_gravity="center"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:onClick="ansClick"
+                style="@style/Answerbuttons"/>
 
             <Button
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Answer 2"
                 android:id="@+id/answers2"
                 android:layout_gravity="center"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="ansClick"
+                style="@style/Answerbuttons"/>
 
             <Button
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Answer 3"
                 android:id="@+id/answers3"
                 android:layout_gravity="center"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="ansClick"
+                style="@style/Answerbuttons"/>
 
         </LinearLayout>
 
