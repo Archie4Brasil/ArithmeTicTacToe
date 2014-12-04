@@ -22,10 +22,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int correctAnswers = 0;     // No of correct answers
     private int incorrectAnswers = 0; // No of incorrect answers
     private String operator;            //operator variable
-    String buttonDefaultColor ="CYAN";      // initial button color
-    String buttonClickColor ="GREEN";
-    String buttonCorrectAnsColor ="BLUE";
-    String buttonIncorrectAnsColor ="RED";
+    String buttonDefaultColor ="cyan";      // initial button color
+    String buttonClickColor ="green";
+    String buttonCorrectAnsColor ="blue";
+    String buttonIncorrectAnsColor ="red";
     String questionString=null;
     private TextView questionText ;
     int selectedButtonIndex=-1;
@@ -69,7 +69,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         b9.setOnClickListener(this);
 
 
-//
+        if (savedInstanceState == null)
+        {
+            randomize();
+        }
+
+
    /*     ansButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,12 +111,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
 
         });*/
-
-
-        if (savedInstanceState == null)
-        {
-            randomize();
-        }
     }
 
     /*public void ansClick(View v) {
@@ -153,12 +152,14 @@ clicks on correct or incorrect answer*/
 
         switch (bClick.getId()) {
             case R.id.answers1: {
-                if (ansButton2.getText().equals(generate.getRightAnswer())) {
+                if (ansButton1.getText().equals(generate.getRightAnswer())) {
                     correctAnswers++;
                     correctAnsSelected = true;
+                    ansButton1.setBackgroundColor(Color.GREEN);
 
                 } else
                     correctAnsSelected = false;
+                    ansButton1.setBackgroundColor(Color.RED);
 
                 break;
             }
@@ -233,7 +234,59 @@ clicks on correct or incorrect answer*/
     @Override
     public void onClick(View v) {
         Button bClick = (Button)v;
-        bClick.setActivated(true);
+        //bClick.setActivated(true);
+        questionText.setText(generate.getProblem());
+
+        switch (bClick.getId()) {
+            case R.id.grid1x1: {
+                selectedButtonIndex = 0;
+                bClick.setBackgroundColor(Color.RED);
+                setAnswerButtonsVisible();
+                break;
+            }
+            case R.id.grid1x2: {
+                selectedButtonIndex = 1;
+                setAnswerButtonsVisible();
+                break;
+            }
+            case R.id.grid1x3: {
+                selectedButtonIndex = 2;
+                setAnswerButtonsVisible();
+                break;
+            }
+            case R.id.grid2x1: {
+                selectedButtonIndex = 3;
+                setAnswerButtonsVisible();
+                break;
+            }
+            case R.id.grid2x2: {
+                selectedButtonIndex = 4;
+                setAnswerButtonsVisible();
+                break;
+            }
+            case R.id.grid2x3: {
+                selectedButtonIndex = 5;
+                setAnswerButtonsVisible();
+                break;
+            }
+            case R.id.grid3x1: {
+                selectedButtonIndex = 6;
+                setAnswerButtonsVisible();
+                break;
+            }
+            case R.id.grid3x2: {
+                selectedButtonIndex = 7;
+                setAnswerButtonsVisible();
+                break;
+            }
+            case R.id.grid3x3: {
+                selectedButtonIndex = 8;
+                setAnswerButtonsVisible();
+                break;
+            }
+        }
+
+    }
         /*ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
         int colorId = buttonColor.getColor();
         if(colorId == Color.parseColor(buttonDefaultColor)) {
@@ -279,11 +332,8 @@ clicks on correct or incorrect answer*/
         {
             questionText.setText("You have already clicked the button");
         }
-        */
 
-        questionText.setText(generate.getProblem());
-
-    }
+    }*/
 
 
 
@@ -300,44 +350,44 @@ clicks on correct or incorrect answer*/
     {
         if(correctAnsSelected)
         {
-            if(selectedButtonIndex==1)
+            if(selectedButtonIndex==0)
                 b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==2)
+            else if(selectedButtonIndex==1)
                 b2.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==3)
+            else if(selectedButtonIndex==2)
                 b3.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==4)
+            else if(selectedButtonIndex==3)
                 b4.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==5)
+            else if(selectedButtonIndex==4)
                 b5.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==6)
+            else if(selectedButtonIndex==5)
                 b6.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==7)
+            else if(selectedButtonIndex==6)
                 b7.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==8)
+            else if(selectedButtonIndex==7)
                 b8.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==9)
+            else if(selectedButtonIndex==8)
                 b9.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
         }else
         if(!correctAnsSelected)
         {
-            if(selectedButtonIndex==1)
+            if(selectedButtonIndex==0)
                 b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==2)
+            else if(selectedButtonIndex==1)
                 b2.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==3)
+            else if(selectedButtonIndex==2)
                 b3.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==4)
+            else if(selectedButtonIndex==3)
                 b4.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==5)
+            else if(selectedButtonIndex==4)
                 b5.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==6)
+            else if(selectedButtonIndex==5)
                 b6.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==7)
+            else if(selectedButtonIndex==6)
                 b7.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==8)
+            else if(selectedButtonIndex==7)
                 b8.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==9)
+            else if(selectedButtonIndex==8)
                 b9.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
         }
         else
@@ -444,31 +494,36 @@ clicks on correct or incorrect answer*/
 
         switch ((int) (Math.random() * 3) + 1) {
             case 1: // first possible order
-                ansButton1 = (Button) findViewById(R.id.answers1);
+                ansButton1.setVisibility(View.INVISIBLE);
                 ansButton1.setText(generate.getFirstRandom());
-                ansButton2 = (Button) findViewById(R.id.answers2);
+                ansButton2.setVisibility(View.INVISIBLE);
                 ansButton2.setText(generate.getSecondRandom());
-                ansButton3 = (Button) findViewById(R.id.answers3);
+                ansButton3.setVisibility(View.INVISIBLE);
                 ansButton3.setText(generate.getRightAnswer());
                 break;
             case 2:
-                ansButton1 = (Button) findViewById(R.id.answers1);
+                ansButton1.setVisibility(View.INVISIBLE);
                 ansButton1.setText(generate.getFirstRandom());
-                ansButton2 = (Button) findViewById(R.id.answers2);
+                ansButton2.setVisibility(View.INVISIBLE);
                 ansButton2.setText(generate.getRightAnswer());
-                ansButton3 = (Button) findViewById(R.id.answers3);
+                ansButton3.setVisibility(View.INVISIBLE);
                 ansButton3.setText(generate.getSecondRandom());
                 break;
             case 3:
-                ansButton1 = (Button) findViewById(R.id.answers1);
+                ansButton1.setVisibility(View.INVISIBLE);
                 ansButton1.setText(generate.getRightAnswer());
-                ansButton2 = (Button) findViewById(R.id.answers2);
+                ansButton2.setVisibility(View.INVISIBLE);
                 ansButton2.setText(generate.getSecondRandom());
-                ansButton3 = (Button) findViewById(R.id.answers3);
+                ansButton3.setVisibility(View.INVISIBLE);
                 ansButton3.setText(generate.getFirstRandom());
                 break;
         }
 
+    }
+    public void setAnswerButtonsVisible(){
+        ansButton1.setVisibility(View.VISIBLE);
+        ansButton2.setVisibility(View.VISIBLE);
+        ansButton3.setVisibility(View.VISIBLE);
     }
 
 
