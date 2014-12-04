@@ -19,11 +19,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ArrayList<Integer> answers; //ArrayList contains 3 answer options including the correct answer
     private TextView msgText;           //Textview to display the question or any message
 
-    private int correctAnswer;          //No of correct answer
-    private int correctAnswers = 0;
-    private int incorrectAnswers = 0;
-    private String operator;
-    String buttonInitColor ="";
+    private int correctAnswer;          //correct answer after calclulation
+    private int correctAnswers = 0;     // No of correct answers
+    private int incorrectAnswers = 0; // No of incorrect answers
+    private String operator;            //operator variable
+    String buttonDefaultColor ="";      // initial button color
     String buttonClickColor ="";
     String buttonCorrectAnsColor ="";
     String buttonIncorrectAnsColor ="";
@@ -31,6 +31,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView questionText ;
     int selectedButtonIndex=-1;
     boolean correctAnsSelected = false;
+    private ArithMagic generate;               //calling class of problem generator
+    int correctAnswerPosition = 0;
 
 
 
@@ -38,7 +40,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        generate = new ArithMagic();
+
         questionText = (TextView)findViewById(R.id.textView);
+        questionText.setText("Pick your position");
         b1 = (Button) findViewById(R.id.grid1x1);
         b2 = (Button) findViewById(R.id.grid1x2);
         b3 = (Button) findViewById(R.id.grid1x3);
@@ -52,6 +58,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ansButton2 = (Button) findViewById(R.id.answers2);
         ansButton3 = (Button) findViewById(R.id.answers3);
 
+
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
         b3.setOnClickListener(this);
@@ -61,27 +68,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
         b7.setOnClickListener(this);
         b8.setOnClickListener(this);
         b9.setOnClickListener(this);
+        ansButton1.setOnClickListener(this);
+        ansButton2.setOnClickListener(this);
+        ansButton3.setOnClickListener(this);
 
-
-        ansButton1.setOnClickListener(new View.OnClickListener() {
+//
+   /*     ansButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ansButton1 = (Button)view;
-                if (ansButton1.getText().equals(Integer.toString(correctAnswer))){
-                    correctAnswers++;
-                    correctAnsSelected=true;
-                }else
-                {
-                    incorrectAnswers++;
-                    correctAnsSelected =false;
-                }
-            }
-        });
+                ansClick();
+
         ansButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ansButton1 = (Button)view;
-                if (ansButton2.getText().equals(Integer.toString(correctAnswer))){
+                if (ansButton2.getText().equals(generate.getRightAnswer())){
                     correctAnswers++;
                     correctAnsSelected=true;
                 }else
@@ -95,7 +97,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 ansButton3 = (Button)view;
-                if (ansButton3.getText().equals(Integer.toString(correctAnswer))){
+                if (ansButton3.getText().equals(generate.getRightAnswer())){
                     correctAnswers++;
                     correctAnsSelected=true;
                 }
@@ -106,14 +108,81 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
             }
 
-        });
-        setGridButtonColorAnsOnClick();
+        });*/
+
+
         if (savedInstanceState == null)
         {
             randomize();
         }
     }
 
+    /*public void ansClick(View v) {
+        Button b=(Button)v;
+
+        switch (b.getId()) {
+            case R.id.answers1: {
+                if (a.getText().equals(generate.getRightAnswer())){
+                    correctAnswers++;
+                    correctAnsSelected=true;
+                }
+                else
+                {
+                    incorrectAnswers++;
+                    correctAnsSelected =false;
+                }
+                break;
+            }
+        if (b.getText().equals(generate.getRightAnswer())){
+            correctAnswers++;
+            correctAnsSelected=true;
+        }else
+        {
+            incorrectAnswers++;
+            correctAnsSelected =false;
+        }
+    }*/
+/* this method is to determine whether user clicks a right or wrong answer when the answer buttons are clicked. calls a method to change
+the background color of the grid buttons depending on the user clicks on correct or incorrect answer
+ */
+    public void ansClick(View v) {
+        Button bClick = (Button) v;
+
+        switch (bClick.getId()) {
+            case R.id.answers1: {
+                if (ansButton2.getText().equals(Integer.toString(correctAnswer))) {
+                    correctAnswers++;
+                    correctAnsSelected = true;
+                } else {
+                    incorrectAnswers++;
+                    correctAnsSelected = false;
+                }
+                break;
+            }
+            case R.id.answers2: {
+                if (ansButton2.getText().equals(Integer.toString(correctAnswer))) {
+                    correctAnswers++;
+                    correctAnsSelected = true;
+                } else {
+                    incorrectAnswers++;
+                    correctAnsSelected = false;
+                }
+                break;
+            }
+            case R.id.answers3: {
+                if (ansButton3.getText().equals(Integer.toString(correctAnswer))) {
+                    correctAnswers++;
+                    correctAnsSelected = true;
+                } else {
+                    incorrectAnswers++;
+                    correctAnsSelected = false;
+                }
+                break;
+            }
+        }
+        setGridButtonColorAnsOnClick();
+    }
+/*This method is to assign  indexes from 1 to 9 for   9 grid buttons */
     public void buttonSelection(){
         Button b;
         if(selectedButtonIndex==1) {
@@ -149,12 +218,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     }
+    /*this is to describe the action when user clicks on gird buttons*/
     @Override
     public void onClick(View v) {
         Button bClick = (Button)v;
         ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
         int colorId = buttonColor.getColor();
-        if(colorId == Color.parseColor(buttonInitColor )) {
+        if(colorId == Color.parseColor(buttonDefaultColor)) {
             switch (bClick.getId()) {
                 case R.id.grid1x1: {
                     selectedButtonIndex = 0;
@@ -195,15 +265,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }else
         {
-            msgText.setText("You have already clicked the button");
+            questionText.setText("You have already clicked the button");
         }
 
     }
-
+    /*This method to set the color of grid button  just after clicking on them */
     public void setGridButtonColor(Button bClick)
     {
         bClick.setBackgroundColor(Color.parseColor(buttonClickColor));
     }
+
+    /*This method to set the color of grid button  just after clicking on answer buttons this sets color of the grid button
+     * depending on the user clicks on correct answer or wrong answer */
     public void setGridButtonColorAnsOnClick()
     {
         if(correctAnsSelected)
@@ -211,43 +284,77 @@ public class MainActivity extends Activity implements View.OnClickListener {
             if(selectedButtonIndex==1)
                 b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
             else if(selectedButtonIndex==2)
-                b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b2.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
             else if(selectedButtonIndex==3)
-                b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b3.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
             else if(selectedButtonIndex==4)
-                b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b4.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
             else if(selectedButtonIndex==5)
-                b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b5.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
             else if(selectedButtonIndex==6)
-                b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b6.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
             else if(selectedButtonIndex==7)
-                b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b7.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
             else if(selectedButtonIndex==8)
-                b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b8.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
             else if(selectedButtonIndex==9)
-                b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b9.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
         }else
         if(!correctAnsSelected)
         {
             if(selectedButtonIndex==1)
                 b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
             else if(selectedButtonIndex==2)
-                b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b2.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
             else if(selectedButtonIndex==3)
-                b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b3.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
             else if(selectedButtonIndex==4)
-                b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b4.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
             else if(selectedButtonIndex==5)
-                b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b5.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
             else if(selectedButtonIndex==6)
-                b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b6.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
             else if(selectedButtonIndex==7)
-                b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b7.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
             else if(selectedButtonIndex==8)
-                b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b8.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
             else if(selectedButtonIndex==9)
-                b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b9.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
         }
+        else
+        {
+            switch (selectedButtonIndex)
+            {
+                case 1:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+                case 2:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+                case 3:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+                case 4:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+                case 5:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+                case 6:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+                case 7:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+                case 8:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+                case 9:
+                    b1.setBackgroundColor(Color.parseColor(buttonDefaultColor));
+                    break;
+            }
+        }
+
     }
     public void displayText()
     {
@@ -265,7 +372,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         incorrectAnswers = savedInstanceState.getInt("incorrectAnswers");
         answers = savedInstanceState.getIntegerArrayList("answers");
         operator = savedInstanceState.getString("operator");
-        buttonInitColor = savedInstanceState.getString("buttonInitColor");
+        buttonDefaultColor = savedInstanceState.getString("buttonInitColor");
         buttonClickColor = savedInstanceState.getString("buttonClickColor");
         buttonCorrectAnsColor = savedInstanceState.getString("buttonCorrectAnsColor");
         buttonIncorrectAnsColor = savedInstanceState.getString("buttonIncorrectAnsColor");
@@ -288,6 +395,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         ansButton1.setBackgroundResource(android.R.drawable.btn_default);
         super.onRestoreInstanceState(savedInstanceState);
     }
+
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt("number1", number1);
@@ -304,6 +413,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     }
+
+
     public void randomize()
     {
         questionString = questionText.getText().toString();
