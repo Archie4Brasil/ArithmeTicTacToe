@@ -2,13 +2,12 @@ package com.greenlightgo.arithmetictactoe.arithmetictactoe;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import  android.widget.Button;
+import android.widget.Button;
 import android.widget.TextView;
+
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -23,11 +22,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int correctAnswers = 0;     // No of correct answers
     private int incorrectAnswers = 0; // No of incorrect answers
     private String operator;            //operator variable
-    String buttonDefaultColor ="";      // initial button color
-    String buttonClickColor ="";
-    String buttonCorrectAnsColor ="";
-    String buttonIncorrectAnsColor ="";
-    String questionString="";
+    String buttonDefaultColor ="CYAN";      // initial button color
+    String buttonClickColor ="GREEN";
+    String buttonCorrectAnsColor ="BLUE";
+    String buttonIncorrectAnsColor ="RED";
+    String questionString=null;
     private TextView questionText ;
     int selectedButtonIndex=-1;
     boolean correctAnsSelected = false;
@@ -68,9 +67,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         b7.setOnClickListener(this);
         b8.setOnClickListener(this);
         b9.setOnClickListener(this);
-        ansButton1.setOnClickListener(this);
-        ansButton2.setOnClickListener(this);
-        ansButton3.setOnClickListener(this);
+
 
 //
    /*     ansButton1.setOnClickListener(new View.OnClickListener() {
@@ -142,25 +139,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
             correctAnsSelected =false;
         }
     }*/
-/* this method is to determine whether user clicks a right or wrong answer when the answer buttons are clicked. calls a method to change
-the background color of the grid buttons depending on the user clicks on correct or incorrect answer
- */
+
+
+
+/* this method is to determine whether user clicks a right or wrong answer when the answer buttons
+are clicked. Calls a method to change the background color of the grid buttons depending on the user
+clicks on correct or incorrect answer*/
+
+
+
     public void ansClick(View v) {
         Button bClick = (Button) v;
 
         switch (bClick.getId()) {
             case R.id.answers1: {
-                if (ansButton2.getText().equals(Integer.toString(correctAnswer))) {
+                if (ansButton2.getText().equals(generate.getRightAnswer())) {
                     correctAnswers++;
                     correctAnsSelected = true;
-                } else {
-                    incorrectAnswers++;
+
+                } else
                     correctAnsSelected = false;
-                }
+
                 break;
             }
             case R.id.answers2: {
-                if (ansButton2.getText().equals(Integer.toString(correctAnswer))) {
+                if (ansButton2.getText().equals(generate.getRightAnswer())) {
                     correctAnswers++;
                     correctAnsSelected = true;
                 } else {
@@ -170,7 +173,7 @@ the background color of the grid buttons depending on the user clicks on correct
                 break;
             }
             case R.id.answers3: {
-                if (ansButton3.getText().equals(Integer.toString(correctAnswer))) {
+                if (ansButton3.getText().equals(generate.getRightAnswer())) {
                     correctAnswers++;
                     correctAnsSelected = true;
                 } else {
@@ -180,8 +183,16 @@ the background color of the grid buttons depending on the user clicks on correct
                 break;
             }
         }
+
+        questionText.setText("Pick another position");
+        generate.generateNumbers();
+        randomize();
         setGridButtonColorAnsOnClick();
     }
+
+
+
+
 /*This method is to assign  indexes from 1 to 9 for   9 grid buttons */
     public void buttonSelection(){
         Button b;
@@ -214,15 +225,16 @@ the background color of the grid buttons depending on the user clicks on correct
             b = (Button) findViewById(R.id.grid3x3);
             setGridButtonColor(b);
         }
-
-
-
     }
+
+
+
     /*this is to describe the action when user clicks on gird buttons*/
     @Override
     public void onClick(View v) {
         Button bClick = (Button)v;
-        ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
+        bClick.setActivated(true);
+        /*ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
         int colorId = buttonColor.getColor();
         if(colorId == Color.parseColor(buttonDefaultColor)) {
             switch (bClick.getId()) {
@@ -267,8 +279,15 @@ the background color of the grid buttons depending on the user clicks on correct
         {
             questionText.setText("You have already clicked the button");
         }
+        */
+
+        questionText.setText(generate.getProblem());
 
     }
+
+
+
+
     /*This method to set the color of grid button  just after clicking on them */
     public void setGridButtonColor(Button bClick)
     {
@@ -356,6 +375,10 @@ the background color of the grid buttons depending on the user clicks on correct
         }
 
     }
+
+
+
+
     public void displayText()
     {
         questionText.setText(questionString);
@@ -417,63 +440,36 @@ the background color of the grid buttons depending on the user clicks on correct
 
     public void randomize()
     {
-        questionString = questionText.getText().toString();
-        String[] mathOp= questionString.split(" ");
-        number1 = Integer.parseInt(mathOp[0]);
-        number2 = Integer.parseInt(mathOp[2]);
-        operator = mathOp[1];
-        if (operator.equals("+"))
-        {
-            answers.add(number1 + number2);
-            randomGenerator(2, 10);
-        }
-        else if (operator.equals("-"))
-        {
-            answers.add(number1 - number2);
-            randomGenerator(0, 4);
-        }
-        else if (operator.equals("*"))
-        {
-            answers.add(number1 * number2);
-            randomGenerator(2, 25);
-        }
-        else if (operator.equals("/"))
-        {
-            answers.add(number1 / number2);
-            randomGenerator(1, 5);
+        questionString = generate.getProblem();
+
+        switch ((int) (Math.random() * 3) + 1) {
+            case 1: // first possible order
+                ansButton1 = (Button) findViewById(R.id.answers1);
+                ansButton1.setText(generate.getFirstRandom());
+                ansButton2 = (Button) findViewById(R.id.answers2);
+                ansButton2.setText(generate.getSecondRandom());
+                ansButton3 = (Button) findViewById(R.id.answers3);
+                ansButton3.setText(generate.getRightAnswer());
+                break;
+            case 2:
+                ansButton1 = (Button) findViewById(R.id.answers1);
+                ansButton1.setText(generate.getFirstRandom());
+                ansButton2 = (Button) findViewById(R.id.answers2);
+                ansButton2.setText(generate.getRightAnswer());
+                ansButton3 = (Button) findViewById(R.id.answers3);
+                ansButton3.setText(generate.getSecondRandom());
+                break;
+            case 3:
+                ansButton1 = (Button) findViewById(R.id.answers1);
+                ansButton1.setText(generate.getRightAnswer());
+                ansButton2 = (Button) findViewById(R.id.answers2);
+                ansButton2.setText(generate.getSecondRandom());
+                ansButton3 = (Button) findViewById(R.id.answers3);
+                ansButton3.setText(generate.getFirstRandom());
+                break;
         }
 
-        Collections.shuffle(answers);
-
-        ansButton1.setText(Integer.toString(answers.get(0)));
-        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
-
-        ansButton2.setText(Integer.toString(answers.get(1)));
-        ansButton2.setBackgroundResource(android.R.drawable.btn_default);
-
-        ansButton3.setText(Integer.toString(answers.get(2)));
-        ansButton3.setBackgroundResource(android.R.drawable.btn_default);
     }
 
-    public void randomGenerator(int max, int min)
-    {
-        correctAnswer = answers.get(0);
-
-        int temp;
-
-        do
-        {
-            temp = (int) (Math.random() * (max - min)) + min;
-
-        }
-        while (temp == answers.get(0));
-        answers.add(temp);
-        do
-        {
-            temp = (int) (Math.random() * (max - min)) + min;
-        }
-        while (temp == answers.get(0) || temp == answers.get(1));
-        answers.add(temp);
-    }
 
 }
