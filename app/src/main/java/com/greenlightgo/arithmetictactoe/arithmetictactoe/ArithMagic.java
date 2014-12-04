@@ -6,10 +6,14 @@ package com.greenlightgo.arithmetictactoe.arithmetictactoe;
  */
 public class ArithMagic {
     private static int firstNumber, secondNumber, randomOne, randomTwo, answer, range, min;
-    protected String problem, firstRandom, secondRandom, rightAnswer;
+    protected String problem;
 
     public ArithMagic() {
+        generateNumbers();
+    }
 
+    public void generateNumbers()
+    {
         // setting random first and second number
         firstNumber = (int) (Math.random() * 10) + 1;
         secondNumber = (int) (Math.random() * 10) + 1;
@@ -43,20 +47,17 @@ public class ArithMagic {
                 break;
         }
 
-        //setting answer into String variable
-        rightAnswer = Integer.toString(answer);
+
 
         // generation and check of possible random answers within range of operation
         randomOne = (int) ((Math.random() * range) + min);
         randomTwo = (int) ((Math.random() * range) + min);
         while (randomOne == randomTwo || randomOne == (answer)) {
             randomOne = (int) ((Math.random() * range) + min);
-            firstRandom = Integer.toString(randomOne);
         }
 
         while (randomOne == randomTwo || randomTwo == (answer)) {
             randomTwo = (int) (Math.random() * range) + min;
-            secondRandom = Integer.toString(randomTwo);
         }
     }
 
@@ -67,16 +68,16 @@ public class ArithMagic {
 
     public String getFirstRandom()
     {
-        return firstRandom;
+        return randomOne+"";
     }
 
     public String getSecondRandom()
     {
-        return secondRandom;
+        return randomTwo+"";
     }
 
     public String getRightAnswer()
     {
-        return rightAnswer;
+        return answer+"";
     }
 }
