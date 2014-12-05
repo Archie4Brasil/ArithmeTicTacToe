@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     boolean correctAnsSelected = false;
     private ArithMagic generate;               //calling class of problem generator
     int correctAnswerPosition = 0;
+    private int answerVisio;
+    private int[] gridPlacement = new int[9];
 
 
 
@@ -69,9 +72,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
         b9.setOnClickListener(this);
 
 
-        if (savedInstanceState == null)
-        {
+
+
+        if( savedInstanceState != null ) {
+            Toast.makeText(this, savedInstanceState.getString("message"), Toast.LENGTH_LONG).show();
+            gridPlacement = savedInstanceState.getIntArray("grid");
+            setAnswerButtonsVisible(savedInstanceState.getInt("visibility"));
+
+            correctAnsSelected = savedInstanceState.getBoolean("colors");
+            setGridButtonColorAnsOnClick();
+        }
+        else {
             randomize();
+            setAnswerButtonsVisible(answerVisio);
+
+            questionText = (TextView) findViewById(R.id.textView);
+            questionText.setText("Pick your position");
         }
 
 
@@ -155,12 +171,11 @@ clicks on correct or incorrect answer*/
                 if (ansButton1.getText().equals(generate.getRightAnswer())) {
                     correctAnswers++;
                     correctAnsSelected = true;
-                   // ansButton1.setBackgroundColor(Color.GREEN);
+                    ansButton1.setBackgroundColor(Color.GREEN);
 
                 } else
-                    correctAnswers++;
                     correctAnsSelected = false;
-                    //ansButton1.setBackgroundColor(Color.RED);
+                    ansButton1.setBackgroundColor(Color.RED);
 
                 break;
             }
@@ -190,6 +205,7 @@ clicks on correct or incorrect answer*/
         generate.generateNumbers();
         randomize();
         setGridButtonColorAnsOnClick();
+        answerVisio = 0;
     }
 
 
@@ -241,51 +257,55 @@ clicks on correct or incorrect answer*/
         switch (bClick.getId()) {
             case R.id.grid1x1: {
                 selectedButtonIndex = 0;
+                gridPlacement[selectedButtonIndex] = 0;
                // bClick.setBackgroundColor(Color.RED);
-                setAnswerButtonsVisible();
+                setAnswerButtonsVisible(answerVisio);
                 break;
             }
             case R.id.grid1x2: {
                 selectedButtonIndex = 1;
-                setAnswerButtonsVisible();
+                gridPlacement[selectedButtonIndex] = 0;
                 break;
             }
             case R.id.grid1x3: {
                 selectedButtonIndex = 2;
-                setAnswerButtonsVisible();
+                gridPlacement[selectedButtonIndex] = 0;
                 break;
             }
             case R.id.grid2x1: {
                 selectedButtonIndex = 3;
-                setAnswerButtonsVisible();
+                gridPlacement[selectedButtonIndex] = 0;
                 break;
             }
             case R.id.grid2x2: {
                 selectedButtonIndex = 4;
-                setAnswerButtonsVisible();
+                gridPlacement[selectedButtonIndex] = 0;
                 break;
             }
             case R.id.grid2x3: {
                 selectedButtonIndex = 5;
-                setAnswerButtonsVisible();
+                gridPlacement[selectedButtonIndex] = 0;
                 break;
             }
             case R.id.grid3x1: {
                 selectedButtonIndex = 6;
-                setAnswerButtonsVisible();
+                gridPlacement[selectedButtonIndex] = 0;
                 break;
             }
             case R.id.grid3x2: {
                 selectedButtonIndex = 7;
-                setAnswerButtonsVisible();
+                gridPlacement[selectedButtonIndex] = 0;
                 break;
             }
             case R.id.grid3x3: {
                 selectedButtonIndex = 8;
-                setAnswerButtonsVisible();
+                gridPlacement[selectedButtonIndex] = 0;
                 break;
             }
         }
+
+        answerVisio=1;
+        setAnswerButtonsVisible(answerVisio);
 
     }
         /*ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
@@ -345,7 +365,6 @@ clicks on correct or incorrect answer*/
                     b.setSaveEnabled(false);
 
         }
-
 
 
     /*This method to set the color of grid button  just after clicking on them */
@@ -473,66 +492,26 @@ clicks on correct or incorrect answer*/
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
 
+        outState.putString("message", "This is my message to be reloaded");
+        outState.putInt("visibility", answerVisio);
+        outState.putIntArray("grid", gridPlacement);
+        outState.putBoolean("colors", correctAnsSelected);
 
-
-    public void displayText()
-    {
-        questionText.setText(questionString);
+        super.onSaveInstanceState(outState);
     }
 
 
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        number1 = savedInstanceState.getInt("number1");
-        number2 = savedInstanceState.getInt("number2");
-        correctAnswer = savedInstanceState.getInt("correctAnswer");
-        correctAnswers = savedInstanceState.getInt("correctAnswers");
-        incorrectAnswers = savedInstanceState.getInt("incorrectAnswers");
-        answers = savedInstanceState.getIntegerArrayList("answers");
-        operator = savedInstanceState.getString("operator");
-        buttonDefaultColor = savedInstanceState.getString("buttonInitColor");
-        buttonClickColor = savedInstanceState.getString("buttonClickColor");
-        buttonCorrectAnsColor = savedInstanceState.getString("buttonCorrectAnsColor");
-        buttonIncorrectAnsColor = savedInstanceState.getString("buttonIncorrectAnsColor");
-        questionString = savedInstanceState.getString("QuestionString");
-        selectedButtonIndex = savedInstanceState.getInt("selectedButtonIndex");
-        correctAnsSelected = savedInstanceState.getBoolean("correctAnsSelected");
-
-        b1.setBackgroundResource(android.R.drawable.btn_default);
-        b2.setBackgroundResource(android.R.drawable.btn_default);
-        b3.setBackgroundResource(android.R.drawable.btn_default);
-        b4.setBackgroundResource(android.R.drawable.btn_default);
-        b5.setBackgroundResource(android.R.drawable.btn_default);
-        b6.setBackgroundResource(android.R.drawable.btn_default);
-        b7.setBackgroundResource(android.R.drawable.btn_default);
-        b8.setBackgroundResource(android.R.drawable.btn_default);
-        b9.setBackgroundResource(android.R.drawable.btn_default);
-
-        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
-        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
-        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
         super.onRestoreInstanceState(savedInstanceState);
-    }
-
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("number1", number1);
-        outState.putInt("number2", number2);
-        outState.putInt("correctAnswer", correctAnswer);
-        outState.putInt("correctAnswers", correctAnswers);
-        outState.putInt("incorrectAnswers", incorrectAnswers);
-        outState.putIntegerArrayList("answers", answers);
-        outState.putString("operator", operator);
-        ansButton1.setText(Integer.toString(answers.get(0)));
-        ansButton2.setText(Integer.toString(answers.get(1)));
-        ansButton3.setText(Integer.toString(answers.get(2)));
-        msgText.setText(questionString);
-
 
     }
+
+
 
 
     public void randomize()
@@ -541,36 +520,39 @@ clicks on correct or incorrect answer*/
 
         switch ((int) (Math.random() * 3) + 1) {
             case 1: // first possible order
-                ansButton1.setVisibility(View.INVISIBLE);
                 ansButton1.setText(generate.getFirstRandom());
-                ansButton2.setVisibility(View.INVISIBLE);
                 ansButton2.setText(generate.getSecondRandom());
-                ansButton3.setVisibility(View.INVISIBLE);
                 ansButton3.setText(generate.getRightAnswer());
                 break;
             case 2:
-                ansButton1.setVisibility(View.INVISIBLE);
                 ansButton1.setText(generate.getFirstRandom());
-                ansButton2.setVisibility(View.INVISIBLE);
                 ansButton2.setText(generate.getRightAnswer());
-                ansButton3.setVisibility(View.INVISIBLE);
                 ansButton3.setText(generate.getSecondRandom());
                 break;
             case 3:
-                ansButton1.setVisibility(View.INVISIBLE);
                 ansButton1.setText(generate.getRightAnswer());
-                ansButton2.setVisibility(View.INVISIBLE);
                 ansButton2.setText(generate.getSecondRandom());
-                ansButton3.setVisibility(View.INVISIBLE);
                 ansButton3.setText(generate.getFirstRandom());
                 break;
         }
 
     }
-    public void setAnswerButtonsVisible(){
-        ansButton1.setVisibility(View.VISIBLE);
-        ansButton2.setVisibility(View.VISIBLE);
-        ansButton3.setVisibility(View.VISIBLE);
+
+
+    // sets answers button visibility
+    public void setAnswerButtonsVisible(int i){
+        if(i==1) {
+            ansButton1.setVisibility(View.VISIBLE);
+            ansButton2.setVisibility(View.VISIBLE);
+            ansButton3.setVisibility(View.VISIBLE);
+        }
+        else {
+            ansButton1.setVisibility(View.INVISIBLE);
+            ansButton2.setVisibility(View.INVISIBLE);
+            ansButton3.setVisibility(View.INVISIBLE);
+        }
+
+
     }
 
 
