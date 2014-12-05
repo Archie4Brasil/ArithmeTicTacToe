@@ -155,11 +155,12 @@ clicks on correct or incorrect answer*/
                 if (ansButton1.getText().equals(generate.getRightAnswer())) {
                     correctAnswers++;
                     correctAnsSelected = true;
-                    ansButton1.setBackgroundColor(Color.GREEN);
+                   // ansButton1.setBackgroundColor(Color.GREEN);
 
                 } else
+                    correctAnswers++;
                     correctAnsSelected = false;
-                    ansButton1.setBackgroundColor(Color.RED);
+                    //ansButton1.setBackgroundColor(Color.RED);
 
                 break;
             }
@@ -240,7 +241,7 @@ clicks on correct or incorrect answer*/
         switch (bClick.getId()) {
             case R.id.grid1x1: {
                 selectedButtonIndex = 0;
-                bClick.setBackgroundColor(Color.RED);
+               // bClick.setBackgroundColor(Color.RED);
                 setAnswerButtonsVisible();
                 break;
             }
@@ -335,6 +336,15 @@ clicks on correct or incorrect answer*/
 
     }*/
 
+    /*This is to set the grid button enabled if it is disable,  or enable if it is disabled*/
+        public void setButtonEnabledDisabled(Button b) {
+            if(b.isEnabled())
+            b.setEnabled(true);
+            else
+                if (!b.isEnabled())
+                    b.setSaveEnabled(false);
+
+        }
 
 
 
@@ -350,45 +360,82 @@ clicks on correct or incorrect answer*/
     {
         if(correctAnsSelected)
         {
-            if(selectedButtonIndex==0)
+            if(selectedButtonIndex==0) {
                 b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==1)
+                b1.setEnabled(false);
+            }
+            else if(selectedButtonIndex==1) {
                 b2.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==2)
+                b2.setEnabled(false);
+            }
+            else if(selectedButtonIndex==2) {
                 b3.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==3)
+                b3.setEnabled(false);
+            }
+            else if(selectedButtonIndex==3) {
                 b4.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==4)
+                b4.setEnabled(false);
+            }
+            else if(selectedButtonIndex==4) {
                 b5.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==5)
+                b5.setEnabled(false);
+            }
+            else if(selectedButtonIndex==5) {
                 b6.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==6)
+                b6.setEnabled(false);
+            }
+            else if(selectedButtonIndex==6) {
                 b7.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==7)
+                b7.setEnabled(false);
+            }
+            else if(selectedButtonIndex==7) {
                 b8.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
-            else if(selectedButtonIndex==8)
+                b8.setEnabled(false);
+            }
+            else if(selectedButtonIndex==8) {
+
                 b9.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b9.setEnabled(false);
+            }
         }else
         if(!correctAnsSelected)
         {
-            if(selectedButtonIndex==0)
+            if(selectedButtonIndex==0) {
                 b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==1)
+                b1.setEnabled(false);
+            }
+            else if(selectedButtonIndex==1) {
                 b2.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==2)
+                b2.setEnabled(false);
+            }
+            else if(selectedButtonIndex==2) {
                 b3.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==3)
+                b3.setEnabled(false);
+            }
+            else if(selectedButtonIndex==3) {
                 b4.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==4)
+                b4.setEnabled(false);
+            }
+            else if(selectedButtonIndex==4) {
                 b5.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==5)
+                b5.setEnabled(false);
+            }
+            else if(selectedButtonIndex==5) {
                 b6.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==6)
+                b6.setEnabled(false);
+            }
+            else if(selectedButtonIndex==6) {
                 b7.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==7)
+                b7.setEnabled(false);
+            }
+            else if(selectedButtonIndex==7) {
                 b8.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
-            else if(selectedButtonIndex==8)
+                b8.setEnabled(false);
+            }
+            else if(selectedButtonIndex==8) {
                 b9.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b9.setEnabled(false);
+            }
         }
         else
         {
