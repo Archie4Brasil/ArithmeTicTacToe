@@ -36,6 +36,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int answerVisio;
     private int[] gridPlacement = new int[9];
 
+    TicTacWinner ticTacToeCheckBoard = new TicTacWinner();
+    boolean gameRun;
 
 
     @Override
@@ -89,79 +91,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             questionText = (TextView) findViewById(R.id.textView);
             questionText.setText("Pick your position");
         }
-
-
-   /*     ansButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ansButton1 = (Button)view;
-                ansClick();
-
-        ansButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ansButton1 = (Button)view;
-                if (ansButton2.getText().equals(generate.getRightAnswer())){
-                    correctAnswers++;
-                    correctAnsSelected=true;
-                }else
-                {
-                    incorrectAnswers++;
-                    correctAnsSelected =false;
-                }
-            }
-        });
-        ansButton3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ansButton3 = (Button)view;
-                if (ansButton3.getText().equals(generate.getRightAnswer())){
-                    correctAnswers++;
-                    correctAnsSelected=true;
-                }
-                else
-                {
-                    incorrectAnswers++;
-                    correctAnsSelected =false;
-                }
-            }
-
-        });*/
     }
-
-    /*public void ansClick(View v) {
-        Button b=(Button)v;
-
-        switch (b.getId()) {
-            case R.id.answers1: {
-                if (a.getText().equals(generate.getRightAnswer())){
-                    correctAnswers++;
-                    correctAnsSelected=true;
-                }
-                else
-                {
-                    incorrectAnswers++;
-                    correctAnsSelected =false;
-                }
-                break;
-            }
-        if (b.getText().equals(generate.getRightAnswer())){
-            correctAnswers++;
-            correctAnsSelected=true;
-        }else
-        {
-            incorrectAnswers++;
-            correctAnsSelected =false;
-        }
-    }*/
-
-
-
-/* this method is to determine whether user clicks a right or wrong answer when the answer buttons
-are clicked. Calls a method to change the background color of the grid buttons depending on the user
-clicks on correct or incorrect answer*/
-
-
 
     public void ansClick(View v) {
         Button bClick = (Button) v;
@@ -172,20 +102,27 @@ clicks on correct or incorrect answer*/
                     correctAnswers++;
                     correctAnsSelected = true;
                     ansButton1.setBackgroundColor(Color.GREEN);
+                    gameRun = ticTacToeCheckBoard.markBoard(correctAnsSelected, selectedButtonIndex);
+                    isGameOver();
 
                 } else
                     correctAnsSelected = false;
                     ansButton1.setBackgroundColor(Color.RED);
-
+                    gameRun = ticTacToeCheckBoard.markBoard(correctAnsSelected, selectedButtonIndex);}
+                    isGameOver();
                 break;
             }
             case R.id.answers2: {
                 if (ansButton2.getText().equals(generate.getRightAnswer())) {
                     correctAnswers++;
                     correctAnsSelected = true;
+                    gameRun = ticTacToeCheckBoard.markBoard(correctAnsSelected, selectedButtonIndex);
+                    isGameOver();
                 } else {
                     incorrectAnswers++;
                     correctAnsSelected = false;
+                    gameRun = ticTacToeCheckBoard.markBoard(correctAnsSelected, selectedButtonIndex);
+                    isGameOver();
                 }
                 break;
             }
@@ -193,9 +130,13 @@ clicks on correct or incorrect answer*/
                 if (ansButton3.getText().equals(generate.getRightAnswer())) {
                     correctAnswers++;
                     correctAnsSelected = true;
+                    gameRun = ticTacToeCheckBoard.markBoard(correctAnsSelected, selectedButtonIndex);
+                    isGameOver();
                 } else {
                     incorrectAnswers++;
                     correctAnsSelected = false;
+                    gameRun = ticTacToeCheckBoard.markBoard(correctAnsSelected, selectedButtonIndex);
+                    isGameOver();
                 }
                 break;
             }
@@ -504,15 +445,58 @@ clicks on correct or incorrect answer*/
     }
 
 
-
+/*      previous onSaveInstance
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+        number1 = savedInstanceState.getInt("number1");
+        number2 = savedInstanceState.getInt("number2");
+        correctAnswer = savedInstanceState.getInt("correctAnswer");
+        correctAnswers = savedInstanceState.getInt("correctAnswers");
+        incorrectAnswers = savedInstanceState.getInt("incorrectAnswers");
+        answers = savedInstanceState.getIntegerArrayList("answers");
+        operator = savedInstanceState.getString("operator");
+        buttonDefaultColor = savedInstanceState.getString("buttonInitColor");
+        buttonClickColor = savedInstanceState.getString("buttonClickColor");
+        buttonCorrectAnsColor = savedInstanceState.getString("buttonCorrectAnsColor");
+        buttonIncorrectAnsColor = savedInstanceState.getString("buttonIncorrectAnsColor");
+        questionString = savedInstanceState.getString("QuestionString");
+        selectedButtonIndex = savedInstanceState.getInt("selectedButtonIndex");
+        correctAnsSelected = savedInstanceState.getBoolean("correctAnsSelected");
 
+        b1.setBackgroundResource(android.R.drawable.btn_default);
+        b2.setBackgroundResource(android.R.drawable.btn_default);
+        b3.setBackgroundResource(android.R.drawable.btn_default);
+        b4.setBackgroundResource(android.R.drawable.btn_default);
+        b5.setBackgroundResource(android.R.drawable.btn_default);
+        b6.setBackgroundResource(android.R.drawable.btn_default);
+        b7.setBackgroundResource(android.R.drawable.btn_default);
+        b8.setBackgroundResource(android.R.drawable.btn_default);
+        b9.setBackgroundResource(android.R.drawable.btn_default);
+
+        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
+        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
+        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("number1", number1);
+        outState.putInt("number2", number2);
+        outState.putInt("correctAnswer", correctAnswer);
+        outState.putInt("correctAnswers", correctAnswers);
+        outState.putInt("incorrectAnswers", incorrectAnswers);
+        outState.putIntegerArrayList("answers", answers);
+        outState.putString("operator", operator);
+        ansButton1.setText(Integer.toString(answers.get(0)));
+        ansButton2.setText(Integer.toString(answers.get(1)));
+        ansButton3.setText(Integer.toString(answers.get(2)));
+        msgText.setText(questionString);
 
+
+    }
+*/
 
     public void randomize()
     {
