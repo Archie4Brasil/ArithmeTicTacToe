@@ -29,12 +29,14 @@ public class MainActivity extends Activity {
     String buttonCorrectAnsColor = "blue";
     String buttonIncorrectAnsColor = "red";
     String questionString = null;
+    boolean newGridButtonSelected = false;
     private TextView questionText;
     int selectedButtonIndex = -1;
     boolean correctAnsSelected = false;
     private ArithMagic generate;               //calling class of problem generator
     int correctAnswerPosition = 0;
     int[] buttonColor = new int[9];
+    String[] buttonState = new String[9];
     boolean win = false;
 
 
@@ -68,6 +70,9 @@ public class MainActivity extends Activity {
         b7.setImageResource(R.drawable.white);
         b8.setImageResource(R.drawable.white);
         b9.setImageResource(R.drawable.white);
+        for (int i = 0; i < 9; i++) {
+            buttonState[i] = buttonDefaultColor;
+        }
 
         if (savedInstanceState == null) {
             randomize();
@@ -244,61 +249,52 @@ clicks on correct or incorrect answer*/
         ImageButton bClick = (ImageButton) v;
         bClick.setActivated(true);
         questionText.setText(generate.getProblem());
-        bClick.setImageResource(R.drawable.green);
-
-        switch (bClick.getId())
-
-        {
+        selectedButtonIndex = -1;
+        switch (bClick.getId()) {
             case R.id.grid1x1: {
                 selectedButtonIndex = 0;
-                setAnswerButtonsVisible();
                 break;
             }
             case R.id.grid1x2: {
                 selectedButtonIndex = 1;
-                setAnswerButtonsVisible();
                 break;
             }
             case R.id.grid1x3: {
                 selectedButtonIndex = 2;
-                setAnswerButtonsVisible();
                 break;
             }
             case R.id.grid2x1: {
                 selectedButtonIndex = 3;
-                setAnswerButtonsVisible();
                 break;
             }
             case R.id.grid2x2: {
                 selectedButtonIndex = 4;
-                setAnswerButtonsVisible();
                 break;
             }
             case R.id.grid2x3: {
                 selectedButtonIndex = 5;
-                setAnswerButtonsVisible();
                 break;
             }
             case R.id.grid3x1: {
                 selectedButtonIndex = 6;
-                setAnswerButtonsVisible();
                 break;
             }
             case R.id.grid3x2: {
                 selectedButtonIndex = 7;
-                setAnswerButtonsVisible();
                 break;
             }
             case R.id.grid3x3: {
                 selectedButtonIndex = 8;
-                setAnswerButtonsVisible();
                 break;
             }
-
-
         }
-
+        newGridButtonSelected = buttonState[selectedButtonIndex].equals(buttonDefaultColor);
+        if (newGridButtonSelected) {
+            bClick.setImageResource(R.drawable.green);
+            setAnswerButtonsVisible();
+        }
     }
+
 
 
         /*ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
