@@ -47,7 +47,7 @@ public class ArithMagic {
                 break;
         }
 
-
+//nothing
 
         // generation and check of possible random answers within range of operation
         randomOne = (int) ((Math.random() * range) + min);

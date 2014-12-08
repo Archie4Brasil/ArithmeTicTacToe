@@ -21,6 +21,16 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
+        <Button
+            android:id="@+id/pictureToText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#EDFF99"
+            android:drawableTop="@drawable/blue_x"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"/>
+
         <TextView
             android:id="@+id/textView"
             android:text="Please Select Position!"
@@ -53,7 +63,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 1x1"
+                android:drawableTop="@drawable/blue_x"
                 android:id="@+id/grid1x1"
                 android:layout_gravity="right" />
 
