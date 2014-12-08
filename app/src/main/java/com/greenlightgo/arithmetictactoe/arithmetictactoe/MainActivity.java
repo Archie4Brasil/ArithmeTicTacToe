@@ -59,6 +59,15 @@ public class MainActivity extends Activity {
         ansButton1 = (Button) findViewById(R.id.answers1);
         ansButton2 = (Button) findViewById(R.id.answers2);
         ansButton3 = (Button) findViewById(R.id.answers3);
+        b1.setImageResource(R.drawable.white);
+        b2.setImageResource(R.drawable.white);
+        b3.setImageResource(R.drawable.white);
+        b4.setImageResource(R.drawable.white);
+        b5.setImageResource(R.drawable.white);
+        b6.setImageResource(R.drawable.white);
+        b7.setImageResource(R.drawable.white);
+        b8.setImageResource(R.drawable.white);
+        b9.setImageResource(R.drawable.white);
 
         if (savedInstanceState == null) {
             randomize();
@@ -208,51 +217,40 @@ clicks on correct or incorrect answer*/
 
     /*This method is to assign  indexes from 1 to 9 for   9 grid buttons */
     public void buttonSelection() {
-        ImageButton b = b1;
         if (selectedButtonIndex == 1) {
-//            b = (ImageButton) findViewById(R.id.grid1x1);
-            setGridButtonColor(b);
-
+            setGridButtonColor(b1);
         } else if (selectedButtonIndex == 2) {
-//            b = (ImageButton) findViewById(R.id.grid1x2);
-            setGridButtonColor(b);
+            setGridButtonColor(b2);
         } else if (selectedButtonIndex == 3) {
-//            b = (ImageButton) findViewById(R.id.grid1x3);
-            setGridButtonColor(b);
+            setGridButtonColor(b3);
         } else if (selectedButtonIndex == 4) {
-//            b = (ImageButton) findViewById(R.id.grid2x1);
-            setGridButtonColor(b);
+            setGridButtonColor(b4);
         } else if (selectedButtonIndex == 5) {
-//            b = (ImageButton) findViewById(R.id.grid2x2);
-            setGridButtonColor(b);
+            setGridButtonColor(b5);
         } else if (selectedButtonIndex == 6) {
-//            b = (ImageButton) findViewById(R.id.grid2x3);
-            setGridButtonColor(b);
+            setGridButtonColor(b6);
         } else if (selectedButtonIndex == 7) {
-//            b = (ImageButton) findViewById(R.id.grid3x1);
-            setGridButtonColor(b);
+            setGridButtonColor(b7);
         } else if (selectedButtonIndex == 8) {
-//            b = (ImageButton) findViewById(R.id.grid3x2);
-            setGridButtonColor(b);
+            setGridButtonColor(b8);
         } else if (selectedButtonIndex == 9) {
-//            b = (ImageButton) findViewById(R.id.grid3x3);
-            setGridButtonColor(b);
+            setGridButtonColor(b9);
         }
     }
 
 
     /*this is to describe the action when user clicks on gird buttons*/
     public void gridClick(View v) {
-            ImageButton bClick = (ImageButton) v;
-        //bClick.setActivated(true);
+        ImageButton bClick = (ImageButton) v;
+        bClick.setActivated(true);
         questionText.setText(generate.getProblem());
+        bClick.setImageResource(R.drawable.green);
 
         switch (bClick.getId())
 
         {
             case R.id.grid1x1: {
                 selectedButtonIndex = 0;
-                // bClick.setBackgroundColor(Color.RED);
                 setAnswerButtonsVisible();
                 break;
             }
@@ -363,7 +361,7 @@ clicks on correct or incorrect answer*/
 
     /*This method to set the color of grid button  just after clicking on them */
     public void setGridButtonColor(ImageButton bClick) {
-        bClick.setBackgroundColor(Color.parseColor(buttonClickColor));
+        bClick.setImageResource(R.drawable.green);
     }
 
     /*This method to set the color of grid button  just after clicking on answer buttons this sets color of the grid button
@@ -659,7 +657,6 @@ clicks on correct or incorrect answer*/
         ansButton2.setVisibility(View.VISIBLE);
         ansButton3.setVisibility(View.VISIBLE);
     }
-
 
 
 }
