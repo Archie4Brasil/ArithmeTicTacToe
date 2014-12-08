@@ -33,6 +33,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     boolean correctAnsSelected = false;
     private ArithMagic generate;               //calling class of problem generator
     int correctAnswerPosition = 0;
+    int[] buttonColor = new int[9];
+    boolean win = false;
 
 
 
@@ -195,7 +197,30 @@ clicks on correct or incorrect answer*/
         randomize();
         setGridButtonColorAnsOnClick();
     }
+   public boolean selectWinner() {
+        if ((buttonColor[0]+buttonColor[1]+buttonColor[2] ==3)  ||(buttonColor[3]+buttonColor[4]+buttonColor[5] ==3) || (buttonColor[6]+buttonColor[7]+buttonColor[8] ==3))
+        {
+            Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if ((buttonColor[0]+buttonColor[3]+buttonColor[6] ==3)|| (buttonColor[1]+buttonColor[4]+buttonColor[7] ==3)|| (buttonColor[2]+buttonColor[5]+buttonColor[8] ==3))
+        {
+            Toast.makeText(getApplicationContext(), "You won the game",Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if ((buttonColor[0]+buttonColor[4]+buttonColor[8]==3)|| (buttonColor[2]+buttonColor[4]+buttonColor[6] ==3))
 
+        {
+            Toast.makeText(getApplicationContext(), "You won the game",Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if ((buttonColor[2]+buttonColor[4]+buttonColor[6]==3) || (buttonColor[2]+buttonColor[4]+buttonColor[6] ==3))
+        {
+            Toast.makeText(getApplicationContext(), "You won the game",Toast.LENGTH_LONG).show();
+            return true;
+        }
+       return false;
+    }
 
 
 
@@ -238,6 +263,7 @@ clicks on correct or incorrect answer*/
     /*this is to describe the action when user clicks on gird buttons*/
     @Override
     public void onClick(View v) {
+
         Button bClick = (Button)v;
         //bClick.setActivated(true);
         questionText.setText(generate.getProblem());
@@ -294,7 +320,7 @@ clicks on correct or incorrect answer*/
             }
         }
 
-    }
+
         /*ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
         int colorId = buttonColor.getColor();
         if(colorId == Color.parseColor(buttonDefaultColor)) {
@@ -376,14 +402,17 @@ clicks on correct or incorrect answer*/
             else if(selectedButtonIndex==1) {
                 b2.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
                 b2.setEnabled(false);
+                buttonColor[1] = 1;
             }
             else if(selectedButtonIndex==2) {
                 b3.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
                 b3.setEnabled(false);
+                buttonColor[2] = 1;
             }
             else if(selectedButtonIndex==3) {
                 b4.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
                 b4.setEnabled(false);
+                buttonColor[3] = 1;
             }
             else if(selectedButtonIndex==4) {
                 b5.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
@@ -398,6 +427,7 @@ clicks on correct or incorrect answer*/
             else if(selectedButtonIndex==6) {
                 b7.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
                 b7.setEnabled(false);
+                buttonColor[6] = 1;
             }
             else if(selectedButtonIndex==7) {
                 b8.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
@@ -485,8 +515,22 @@ clicks on correct or incorrect answer*/
         }
         win =selectWinner();
      //   if(win){
-      //      resetButton();
-      //  }
+       //     resetButton();
+       // }
+    }
+public void resetButton(){
+    for(int i=0;i<9;i++)
+    {
+        if(buttonColor[i]+buttonColor[i+1]+buttonColor[i+2]==3){
+            if(i==0)clearGrid(0,2);
+            if(i==3)clearGrid(3,5);
+            if(i==6)clearGrid(6,8);
+        }
+        if(buttonColor[i]+buttonColor[i+1]+buttonColor[i+2]==3){
+            if(i==0)clearGrid(0,2);
+            if(i==3)clearGrid(3,5);
+            if(i==6)clearGrid(6,8);
+        }
     }
 
 
@@ -624,6 +668,7 @@ clicks on correct or incorrect answer*/
         outState.putInt("incorrectAnswers", incorrectAnswers);
         outState.putIntegerArrayList("answers", answers);
         outState.putString("operator", operator);
+
         ansButton1.setText(Integer.toString(answers.get(0)));
         ansButton2.setText(Integer.toString(answers.get(1)));
         ansButton3.setText(Integer.toString(answers.get(2)));
