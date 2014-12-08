@@ -21,16 +21,6 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <Button
-            android:id="@+id/pictureToText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#EDFF99"
-            android:drawableTop="@drawable/blue_x"
-            android:textStyle="bold"
-            android:background="@android:color/transparent"/>
-
         <TextView
             android:id="@+id/textView"
             android:text="Please Select Position!"
@@ -60,21 +50,21 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:drawableTop="@drawable/blue_x"
                 android:id="@+id/grid1x1"
                 android:layout_gravity="right" />
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Grid 1x2"
                 android:id="@+id/grid1x2"
                 android:layout_gravity="center_horizontal" />
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Grid 1x3"
@@ -91,21 +81,21 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Grid 2x1"
                 android:id="@+id/grid2x1"
                 android:layout_gravity="right" />
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Grid 2x2"
                 android:id="@+id/grid2x2"
                 android:layout_gravity="center_horizontal" />
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Grid 2x3"
@@ -122,21 +112,21 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Grid 3x1"
                 android:id="@+id/grid3x1"
                 android:layout_gravity="right" />
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Grid 3x2"
                 android:id="@+id/grid3x2"
                 android:layout_gravity="center_horizontal" />
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Grid 3x3"

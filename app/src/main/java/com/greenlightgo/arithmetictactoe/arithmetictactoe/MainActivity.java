@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
-    Button b1,b2,b3,b4,b5,b6,b7,b8,b9;  //Grid Buttons
+    ImageButton b1,b2,b3,b4,b5,b6,b7,b8,b9;  //Grid Buttons
     Button ansButton1,ansButton2,ansButton3;
     private int number1;                //First Operand
     private int number2;                //Second Operand
@@ -47,15 +48,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         questionText = (TextView)findViewById(R.id.textView);
         questionText.setText("Pick your position");
-        b1 = (Button) findViewById(R.id.grid1x1);
-        b2 = (Button) findViewById(R.id.grid1x2);
-        b3 = (Button) findViewById(R.id.grid1x3);
-        b4 = (Button) findViewById(R.id.grid2x1);
-        b5 = (Button) findViewById(R.id.grid2x2);
-        b6 = (Button) findViewById(R.id.grid2x3);
-        b7 = (Button) findViewById(R.id.grid3x1);
-        b8 = (Button) findViewById(R.id.grid3x2);
-        b9 = (Button) findViewById(R.id.grid3x3);
+        b1 = (ImageButton) findViewById(R.id.grid1x1);
+        b2 = (ImageButton) findViewById(R.id.grid1x2);
+        b3 = (ImageButton) findViewById(R.id.grid1x3);
+        b4 = (ImageButton) findViewById(R.id.grid2x1);
+        b5 = (ImageButton) findViewById(R.id.grid2x2);
+        b6 = (ImageButton) findViewById(R.id.grid2x3);
+        b7 = (ImageButton) findViewById(R.id.grid3x1);
+        b8 = (ImageButton) findViewById(R.id.grid3x2);
+        b9 = (ImageButton) findViewById(R.id.grid3x3);
         ansButton1 = (Button) findViewById(R.id.answers1);
         ansButton2 = (Button) findViewById(R.id.answers2);
         ansButton3 = (Button) findViewById(R.id.answers3);
@@ -226,34 +227,34 @@ clicks on correct or incorrect answer*/
 
 /*This method is to assign  indexes from 1 to 9 for   9 grid buttons */
     public void buttonSelection(){
-        Button b;
+        ImageButton b = b1;
         if(selectedButtonIndex==1) {
-            b = (Button) findViewById(R.id.grid1x1);
+//            b = (ImageButton) findViewById(R.id.grid1x1);
             setGridButtonColor(b);
 
         }else if(selectedButtonIndex==2) {
-            b = (Button) findViewById(R.id.grid1x2);
+//            b = (ImageButton) findViewById(R.id.grid1x2);
             setGridButtonColor(b);
         }else if(selectedButtonIndex==3) {
-            b = (Button) findViewById(R.id.grid1x3);
+//            b = (ImageButton) findViewById(R.id.grid1x3);
             setGridButtonColor(b);
         }else if(selectedButtonIndex==4) {
-            b = (Button) findViewById(R.id.grid2x1);
+//            b = (ImageButton) findViewById(R.id.grid2x1);
             setGridButtonColor(b);
         }else if(selectedButtonIndex==5) {
-            b = (Button) findViewById(R.id.grid2x2);
+//            b = (ImageButton) findViewById(R.id.grid2x2);
             setGridButtonColor(b);
         }else if(selectedButtonIndex==6) {
-            b = (Button) findViewById(R.id.grid2x3);
+//            b = (ImageButton) findViewById(R.id.grid2x3);
             setGridButtonColor(b);
         }else if(selectedButtonIndex==7) {
-            b = (Button) findViewById(R.id.grid3x1);
+//            b = (ImageButton) findViewById(R.id.grid3x1);
             setGridButtonColor(b);
         }else if(selectedButtonIndex==8) {
-            b = (Button) findViewById(R.id.grid3x2);
+//            b = (ImageButton) findViewById(R.id.grid3x2);
             setGridButtonColor(b);
         }else if(selectedButtonIndex==9) {
-            b = (Button) findViewById(R.id.grid3x3);
+//            b = (ImageButton) findViewById(R.id.grid3x3);
             setGridButtonColor(b);
         }
     }
@@ -263,7 +264,6 @@ clicks on correct or incorrect answer*/
     /*this is to describe the action when user clicks on gird buttons*/
     @Override
     public void onClick(View v) {
-
         Button bClick = (Button)v;
         //bClick.setActivated(true);
         questionText.setText(generate.getProblem());
@@ -382,7 +382,7 @@ clicks on correct or incorrect answer*/
 
 
     /*This method to set the color of grid button  just after clicking on them */
-    public void setGridButtonColor(Button bClick)
+    public void setGridButtonColor(ImageButton bClick)
     {
         bClick.setBackgroundColor(Color.parseColor(buttonClickColor));
     }
