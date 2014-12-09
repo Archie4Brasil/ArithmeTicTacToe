@@ -61,18 +61,19 @@ public class MainActivity extends Activity {
         ansButton1 = (Button) findViewById(R.id.answers1);
         ansButton2 = (Button) findViewById(R.id.answers2);
         ansButton3 = (Button) findViewById(R.id.answers3);
-        b1.setImageResource(R.drawable.white);
-        b2.setImageResource(R.drawable.white);
-        b3.setImageResource(R.drawable.white);
-        b4.setImageResource(R.drawable.white);
-        b5.setImageResource(R.drawable.white);
-        b6.setImageResource(R.drawable.white);
-        b7.setImageResource(R.drawable.white);
-        b8.setImageResource(R.drawable.white);
-        b9.setImageResource(R.drawable.white);
+//        b1.setImageResource(R.drawable.white);
+//        b2.setImageResource(R.drawable.white);
+//        b3.setImageResource(R.drawable.white);
+//        b4.setImageResource(R.drawable.white);
+//        b5.setImageResource(R.drawable.white);
+//        b6.setImageResource(R.drawable.white);
+//        b7.setImageResource(R.drawable.white);
+//        b8.setImageResource(R.drawable.white);
+//        b9.setImageResource(R.drawable.white);
         for (int i = 0; i < 9; i++) {
             buttonState[i] = buttonDefaultColor;
         }
+        drawButtonImages();
 
         if (savedInstanceState == null) {
             randomize();
@@ -371,7 +372,6 @@ clicks on correct or incorrect answer*/
                 buttonState[0] = buttonCorrectAnsColor;
                 b1.setEnabled(false);
                 buttonColor[0] = 1;
-
             } else if (selectedButtonIndex == 1) {
                 b2.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
                 b2.setImageResource(R.drawable.blue_x);
@@ -424,30 +424,48 @@ clicks on correct or incorrect answer*/
         } else if (!correctAnsSelected) {
             if (selectedButtonIndex == 0) {
                 b1.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b1.setImageResource(R.drawable.red_o);
+                buttonState[0] = buttonIncorrectAnsColor;
                 b1.setEnabled(false);
             } else if (selectedButtonIndex == 1) {
                 b2.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b2.setImageResource(R.drawable.red_o);
+                buttonState[1] = buttonIncorrectAnsColor;
                 b2.setEnabled(false);
             } else if (selectedButtonIndex == 2) {
                 b3.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b3.setImageResource(R.drawable.red_o);
+                buttonState[2] = buttonIncorrectAnsColor;
                 b3.setEnabled(false);
             } else if (selectedButtonIndex == 3) {
                 b4.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b4.setImageResource(R.drawable.red_o);
+                buttonState[3] = buttonIncorrectAnsColor;
                 b4.setEnabled(false);
             } else if (selectedButtonIndex == 4) {
                 b5.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b5.setImageResource(R.drawable.red_o);
+                buttonState[4] = buttonIncorrectAnsColor;
                 b5.setEnabled(false);
             } else if (selectedButtonIndex == 5) {
                 b6.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b6.setImageResource(R.drawable.red_o);
+                buttonState[5] = buttonIncorrectAnsColor;
                 b6.setEnabled(false);
             } else if (selectedButtonIndex == 6) {
                 b7.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b7.setImageResource(R.drawable.red_o);
+                buttonState[6] = buttonIncorrectAnsColor;
                 b7.setEnabled(false);
             } else if (selectedButtonIndex == 7) {
                 b8.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b8.setImageResource(R.drawable.red_o);
+                buttonState[7] = buttonIncorrectAnsColor;
                 b8.setEnabled(false);
             } else if (selectedButtonIndex == 8) {
                 b9.setBackgroundColor(Color.parseColor(buttonIncorrectAnsColor));
+                b9.setImageResource(R.drawable.red_o);
+                buttonState[8] = buttonIncorrectAnsColor;
                 b9.setEnabled(false);
             }
         } else {
@@ -596,7 +614,8 @@ clicks on correct or incorrect answer*/
         questionString = savedInstanceState.getString("QuestionString");
         selectedButtonIndex = savedInstanceState.getInt("selectedButtonIndex");
         correctAnsSelected = savedInstanceState.getBoolean("correctAnsSelected");
-
+        newGridButtonSelected = savedInstanceState.getBoolean("newGridButtonState");
+        buttonState = savedInstanceState.getStringArray("buttonState");
 
         b1.setBackgroundResource(android.R.drawable.btn_default);
         b2.setBackgroundResource(android.R.drawable.btn_default);
@@ -608,10 +627,79 @@ clicks on correct or incorrect answer*/
         b8.setBackgroundResource(android.R.drawable.btn_default);
         b9.setBackgroundResource(android.R.drawable.btn_default);
 
+        drawButtonImages();
+
         ansButton1.setBackgroundResource(android.R.drawable.btn_default);
         ansButton1.setBackgroundResource(android.R.drawable.btn_default);
         ansButton1.setBackgroundResource(android.R.drawable.btn_default);
         super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    void drawButtonImages() {
+        b1 = (ImageButton) findViewById(R.id.grid1x1);
+        b2 = (ImageButton) findViewById(R.id.grid1x2);
+        b3 = (ImageButton) findViewById(R.id.grid1x3);
+        b4 = (ImageButton) findViewById(R.id.grid2x1);
+        b5 = (ImageButton) findViewById(R.id.grid2x2);
+        b6 = (ImageButton) findViewById(R.id.grid2x3);
+        b7 = (ImageButton) findViewById(R.id.grid3x1);
+        b8 = (ImageButton) findViewById(R.id.grid3x2);
+        b9 = (ImageButton) findViewById(R.id.grid3x3);
+        if (buttonState[0].equals(buttonClickColor)) b1.setImageResource(R.drawable.green);
+        else if (buttonState[0].equals(buttonDefaultColor)) b1.setImageResource(R.drawable.white);
+        else if (buttonState[0].equals(buttonCorrectAnsColor))
+            b1.setImageResource(R.drawable.blue_x);
+        else if (buttonState[0].equals(buttonIncorrectAnsColor))
+            b1.setImageResource(R.drawable.red_o);
+        if (buttonState[1].equals(buttonClickColor)) b2.setImageResource(R.drawable.green);
+        else if (buttonState[1].equals(buttonDefaultColor)) b2.setImageResource(R.drawable.white);
+        else if (buttonState[1].equals(buttonCorrectAnsColor))
+            b2.setImageResource(R.drawable.blue_x);
+        else if (buttonState[1].equals(buttonIncorrectAnsColor))
+            b2.setImageResource(R.drawable.red_o);
+        if (buttonState[2].equals(buttonClickColor)) b3.setImageResource(R.drawable.green);
+        else if (buttonState[2].equals(buttonDefaultColor)) b3.setImageResource(R.drawable.white);
+        else if (buttonState[2].equals(buttonCorrectAnsColor))
+            b3.setImageResource(R.drawable.blue_x);
+        else if (buttonState[2].equals(buttonIncorrectAnsColor))
+            b3.setImageResource(R.drawable.red_o);
+        if (buttonState[3].equals(buttonClickColor)) b4.setImageResource(R.drawable.green);
+        else if (buttonState[3].equals(buttonDefaultColor)) b4.setImageResource(R.drawable.white);
+        else if (buttonState[3].equals(buttonCorrectAnsColor))
+            b4.setImageResource(R.drawable.blue_x);
+        else if (buttonState[3].equals(buttonIncorrectAnsColor))
+            b4.setImageResource(R.drawable.red_o);
+        if (buttonState[4].equals(buttonClickColor)) b5.setImageResource(R.drawable.green);
+        else if (buttonState[4].equals(buttonDefaultColor)) b5.setImageResource(R.drawable.white);
+        else if (buttonState[4].equals(buttonCorrectAnsColor))
+            b5.setImageResource(R.drawable.blue_x);
+        else if (buttonState[4].equals(buttonIncorrectAnsColor))
+            b5.setImageResource(R.drawable.red_o);
+        if (buttonState[5].equals(buttonClickColor)) b6.setImageResource(R.drawable.green);
+        else if (buttonState[5].equals(buttonDefaultColor)) b6.setImageResource(R.drawable.white);
+        else if (buttonState[5].equals(buttonCorrectAnsColor))
+            b6.setImageResource(R.drawable.blue_x);
+        else if (buttonState[5].equals(buttonIncorrectAnsColor))
+            b6.setImageResource(R.drawable.red_o);
+        if (buttonState[6].equals(buttonClickColor)) b7.setImageResource(R.drawable.green);
+        else if (buttonState[6].equals(buttonDefaultColor)) b7.setImageResource(R.drawable.white);
+        else if (buttonState[6].equals(buttonCorrectAnsColor))
+            b7.setImageResource(R.drawable.blue_x);
+        else if (buttonState[6].equals(buttonIncorrectAnsColor))
+            b7.setImageResource(R.drawable.red_o);
+        if (buttonState[7].equals(buttonClickColor)) b8.setImageResource(R.drawable.green);
+        else if (buttonState[7].equals(buttonDefaultColor)) b8.setImageResource(R.drawable.white);
+        else if (buttonState[7].equals(buttonCorrectAnsColor))
+            b8.setImageResource(R.drawable.blue_x);
+        else if (buttonState[7].equals(buttonIncorrectAnsColor))
+            b8.setImageResource(R.drawable.red_o);
+        if (buttonState[8].equals(buttonClickColor)) b9.setImageResource(R.drawable.green);
+        else if (buttonState[8].equals(buttonDefaultColor)) b9.setImageResource(R.drawable.white);
+        else if (buttonState[8].equals(buttonCorrectAnsColor))
+            b9.setImageResource(R.drawable.blue_x);
+        else if (buttonState[8].equals(buttonIncorrectAnsColor))
+            b9.setImageResource(R.drawable.red_o);
+
     }
 
 
@@ -624,11 +712,13 @@ clicks on correct or incorrect answer*/
         outState.putInt("incorrectAnswers", incorrectAnswers);
         outState.putIntegerArrayList("answers", answers);
         outState.putString("operator", operator);
+        outState.putStringArray("buttonState", buttonState);
+        outState.putBoolean("newGridButtonSelected", newGridButtonSelected);
 
-        ansButton1.setText(Integer.toString(answers.get(0)));
-        ansButton2.setText(Integer.toString(answers.get(1)));
-        ansButton3.setText(Integer.toString(answers.get(2)));
-        msgText.setText(questionString);
+//        ansButton1.setText(Integer.toString(answers.get(0)));
+//        ansButton2.setText(Integer.toString(answers.get(1)));
+//        ansButton3.setText(Integer.toString(answers.get(2)));
+//        msgText.setText(questionString);
 
 
     }

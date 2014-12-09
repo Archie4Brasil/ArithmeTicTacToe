@@ -60,7 +60,6 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 1x2"
                 android:id="@+id/grid1x2"
                 android:onClick="gridClick"
                 android:layout_gravity="center_horizontal" />
@@ -68,7 +67,6 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 1x3"
                 android:id="@+id/grid1x3"
                 android:onClick="gridClick"
                 android:layout_gravity="left"/>
@@ -86,7 +84,6 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 2x1"
                 android:id="@+id/grid2x1"
                 android:onClick="gridClick"
                 android:layout_gravity="right" />
@@ -94,7 +91,6 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 2x2"
                 android:id="@+id/grid2x2"
                 android:onClick="gridClick"
                 android:layout_gravity="center_horizontal" />
@@ -102,7 +98,6 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 2x3"
                 android:id="@+id/grid2x3"
                 android:onClick="gridClick"
                 android:layout_gravity="left"/>
@@ -120,7 +115,6 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 3x1"
                 android:id="@+id/grid3x1"
                 android:onClick="gridClick"
                 android:layout_gravity="right" />
@@ -128,7 +122,6 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 3x2"
                 android:id="@+id/grid3x2"
                 android:onClick="gridClick"
                 android:layout_gravity="center_horizontal" />
@@ -136,7 +129,6 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Grid 3x3"
                 android:onClick="gridClick"
                 android:layout_gravity="left"
                 android:id="@+id/grid3x3" />
