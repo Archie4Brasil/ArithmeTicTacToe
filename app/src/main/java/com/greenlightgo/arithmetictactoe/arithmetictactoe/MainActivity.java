@@ -367,40 +367,57 @@ clicks on correct or incorrect answer*/
         if (correctAnsSelected) {
             if (selectedButtonIndex == 0) {
                 b1.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b1.setImageResource(R.drawable.blue_x);
+                buttonState[0] = buttonCorrectAnsColor;
                 b1.setEnabled(false);
                 buttonColor[0] = 1;
 
             } else if (selectedButtonIndex == 1) {
                 b2.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b2.setImageResource(R.drawable.blue_x);
+                buttonState[1] = buttonCorrectAnsColor;
                 b2.setEnabled(false);
                 buttonColor[1] = 1;
             } else if (selectedButtonIndex == 2) {
                 b3.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b3.setImageResource(R.drawable.blue_x);
+                buttonState[2] = buttonCorrectAnsColor;
                 b3.setEnabled(false);
                 buttonColor[2] = 1;
             } else if (selectedButtonIndex == 3) {
                 b4.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b4.setImageResource(R.drawable.blue_x);
+                buttonState[3] = buttonCorrectAnsColor;
                 b4.setEnabled(false);
                 buttonColor[3] = 1;
             } else if (selectedButtonIndex == 4) {
                 b5.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b5.setImageResource(R.drawable.blue_x);
+                buttonState[4] = buttonCorrectAnsColor;
                 b5.setEnabled(false);
                 buttonColor[4] = 1;
             } else if (selectedButtonIndex == 5) {
                 b6.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b6.setImageResource(R.drawable.blue_x);
+                buttonState[5] = buttonCorrectAnsColor;
                 b6.setEnabled(false);
                 buttonColor[5] = 1;
             } else if (selectedButtonIndex == 6) {
                 b7.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b7.setImageResource(R.drawable.blue_x);
+                buttonState[6] = buttonCorrectAnsColor;
                 b7.setEnabled(false);
                 buttonColor[6] = 1;
             } else if (selectedButtonIndex == 7) {
                 b8.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b8.setImageResource(R.drawable.blue_x);
+                buttonState[7] = buttonCorrectAnsColor;
                 b8.setEnabled(false);
                 buttonColor[7] = 1;
             } else if (selectedButtonIndex == 8) {
-
                 b9.setBackgroundColor(Color.parseColor(buttonCorrectAnsColor));
+                b9.setImageResource(R.drawable.blue_x);
+                buttonState[8] = buttonCorrectAnsColor;
                 b9.setEnabled(false);
                 buttonColor[8] = 1;
             }
