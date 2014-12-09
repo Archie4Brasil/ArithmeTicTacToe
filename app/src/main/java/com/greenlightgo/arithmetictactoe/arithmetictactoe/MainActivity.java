@@ -39,24 +39,16 @@ public class MainActivity extends Activity {
     String[] buttonState = new String[9];
     boolean win = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         generate = new ArithMagic();
-
-        questionText = (TextView) findViewById(R.id.textView);
-        questionText.setText("Pick your position");
-        ansButton1 = (Button) findViewById(R.id.answers1);
-        ansButton2 = (Button) findViewById(R.id.answers2);
-        ansButton3 = (Button) findViewById(R.id.answers3);
+        answers = new ArrayList<Integer>();
         for (int i = 0; i < 9; i++) {
             buttonState[i] = buttonDefaultColor;
         }
         drawButtonImages();
-
         if (savedInstanceState == null) {
             randomize();
         }
@@ -135,22 +127,23 @@ clicks on correct or incorrect answer*/
 
     public void ansClick(View bClick) {
         newGridButtonSelected = false;
+//        Toast.makeText(getApplicationContext(), "" + correctAnswer + " " + ansButton1.getText() + " " + ansButton2.getText() + " " + ansButton3.getText(), Toast.LENGTH_LONG).show();
         switch (bClick.getId()) {
             case R.id.answers1: {
-                if (ansButton1.getText().equals(generate.getRightAnswer())) {
+                if (ansButton1.getText().equals("" + correctAnswer)) {
                     correctAnswers++;
                     correctAnsSelected = true;
                     // ansButton1.setBackgroundColor(Color.GREEN);
 
-                } else
-                    correctAnswers++;
-                correctAnsSelected = false;
-                //ansButton1.setBackgroundColor(Color.RED);
-
+                } else {
+                    incorrectAnswers++;
+                    correctAnsSelected = false;
+                    //ansButton1.setBackgroundColor(Color.RED);
+                }
                 break;
             }
             case R.id.answers2: {
-                if (ansButton2.getText().equals(generate.getRightAnswer())) {
+                if (ansButton2.getText().equals("" + correctAnswer)) {
                     correctAnswers++;
                     correctAnsSelected = true;
                 } else {
@@ -160,7 +153,7 @@ clicks on correct or incorrect answer*/
                 break;
             }
             case R.id.answers3: {
-                if (ansButton3.getText().equals(generate.getRightAnswer())) {
+                if (ansButton3.getText().equals("" + correctAnswer)) {
                     correctAnswers++;
                     correctAnsSelected = true;
                 } else {
@@ -171,12 +164,12 @@ clicks on correct or incorrect answer*/
             }
         }
 
-        questionText.setText("Pick another position");
+//        questionText.setText("Pick another position");
 
-
+        setGridButtonColorAnsOnClick();
         generate.generateNumbers();
         randomize();
-        setGridButtonColorAnsOnClick();
+
     }
 
     public boolean selectWinner() {
@@ -203,27 +196,27 @@ clicks on correct or incorrect answer*/
 
 
     /*This method is to assign  indexes from 1 to 9 for   9 grid buttons */
-    public void buttonSelection() {
-        if (selectedButtonIndex == 1) {
-            setGridButtonColor(b1);
-        } else if (selectedButtonIndex == 2) {
-            setGridButtonColor(b2);
-        } else if (selectedButtonIndex == 3) {
-            setGridButtonColor(b3);
-        } else if (selectedButtonIndex == 4) {
-            setGridButtonColor(b4);
-        } else if (selectedButtonIndex == 5) {
-            setGridButtonColor(b5);
-        } else if (selectedButtonIndex == 6) {
-            setGridButtonColor(b6);
-        } else if (selectedButtonIndex == 7) {
-            setGridButtonColor(b7);
-        } else if (selectedButtonIndex == 8) {
-            setGridButtonColor(b8);
-        } else if (selectedButtonIndex == 9) {
-            setGridButtonColor(b9);
-        }
-    }
+//    public void buttonSelection() {
+//        if (selectedButtonIndex == 1) {
+//            setGridButtonColor(b1);
+//        } else if (selectedButtonIndex == 2) {
+//            setGridButtonColor(b2);
+//        } else if (selectedButtonIndex == 3) {
+//            setGridButtonColor(b3);
+//        } else if (selectedButtonIndex == 4) {
+//            setGridButtonColor(b4);
+//        } else if (selectedButtonIndex == 5) {
+//            setGridButtonColor(b5);
+//        } else if (selectedButtonIndex == 6) {
+//            setGridButtonColor(b6);
+//        } else if (selectedButtonIndex == 7) {
+//            setGridButtonColor(b7);
+//        } else if (selectedButtonIndex == 8) {
+//            setGridButtonColor(b8);
+//        } else if (selectedButtonIndex == 9) {
+//            setGridButtonColor(b9);
+//        }
+//    }
 
 
     /*this is to describe the action when user clicks on gird buttons*/
@@ -275,7 +268,7 @@ clicks on correct or incorrect answer*/
         if (newGridButtonSelected) {
             buttonState[selectedButtonIndex] = buttonClickColor;
             drawButtonImages();
-            setAnswerButtonsVisible();
+//            setAnswerButtonsVisible();
         }
     }
 
@@ -330,20 +323,19 @@ clicks on correct or incorrect answer*/
     }*/
 
     /*This is to set the grid button enabled if it is disable,  or enable if it is disabled*/
-    public void setButtonEnabledDisabled(Button b) {
-        if (b.isEnabled())
-            b.setEnabled(true);
-        else if (!b.isEnabled())
-            b.setSaveEnabled(false);
-
-    }
+//    public void setButtonEnabledDisabled(Button b) {
+//        if (b.isEnabled())
+//            b.setEnabled(true);
+//        else if (!b.isEnabled())
+//            b.setSaveEnabled(false);
+//
+//    }
 
 
     /*This method to set the color of grid button  just after clicking on them */
-    public void setGridButtonColor(ImageButton bClick) {
-        drawButtonImages();
-//        bClick.setImageResource(R.drawable.green);
-    }
+//    public void setGridButtonColor(ImageButton bClick) {
+//        drawButtonImages();
+//    }
 
     /*This method to set the color of grid button  just after clicking on answer buttons this sets color of the grid button
      * depending on the user clicks on correct answer or wrong answer */
@@ -353,7 +345,7 @@ clicks on correct or incorrect answer*/
             buttonColor[selectedButtonIndex] = 1;
         } else {
             buttonState[selectedButtonIndex] = buttonIncorrectAnsColor;
-            }
+        }
         win = selectWinner();
         //   if(win){
         //     resetButton();
@@ -449,9 +441,9 @@ clicks on correct or incorrect answer*/
     }
 
 
-    public void displayText() {
-        questionText.setText(questionString);
-    }
+//    public void displayText() {
+//        questionText.setText(questionString);
+//    }
 
 
     @Override
@@ -474,9 +466,9 @@ clicks on correct or incorrect answer*/
         buttonState = savedInstanceState.getStringArray("buttonState");
         drawButtonImages();
 
-        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
-        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
-        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
+//        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
+//        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
+//        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -490,7 +482,11 @@ clicks on correct or incorrect answer*/
         b7 = (ImageButton) findViewById(R.id.grid3x1);
         b8 = (ImageButton) findViewById(R.id.grid3x2);
         b9 = (ImageButton) findViewById(R.id.grid3x3);
-        Toast.makeText(getApplicationContext(), "" + b1, Toast.LENGTH_LONG).show();
+        questionText = (TextView) findViewById(R.id.textView);
+        ansButton1 = (Button) findViewById(R.id.answers1);
+        ansButton2 = (Button) findViewById(R.id.answers2);
+        ansButton3 = (Button) findViewById(R.id.answers3);
+//        Toast.makeText(getApplicationContext(), "" + b1, Toast.LENGTH_LONG).show();
         if (buttonState[0].equals(buttonClickColor)) b1.setImageResource(R.drawable.green);
         else if (buttonState[0].equals(buttonDefaultColor)) b1.setImageResource(R.drawable.white);
         else if (buttonState[0].equals(buttonCorrectAnsColor)) blueButton(b1);
@@ -527,6 +523,20 @@ clicks on correct or incorrect answer*/
         else if (buttonState[8].equals(buttonDefaultColor)) b9.setImageResource(R.drawable.white);
         else if (buttonState[8].equals(buttonCorrectAnsColor)) blueButton(b9);
         else if (buttonState[8].equals(buttonIncorrectAnsColor)) redButton(b9);
+        if (newGridButtonSelected) {
+            ansButton1.setText(Integer.toString(answers.get(0)));
+            ansButton2.setText(Integer.toString(answers.get(1)));
+            ansButton3.setText(Integer.toString(answers.get(2)));
+            questionText.setText(questionString);
+            ansButton1.setVisibility(View.VISIBLE);
+            ansButton2.setVisibility(View.VISIBLE);
+            ansButton3.setVisibility(View.VISIBLE);
+        } else {
+            questionText.setText("Pick your position");
+            ansButton1.setVisibility(View.INVISIBLE);
+            ansButton2.setVisibility(View.INVISIBLE);
+            ansButton3.setVisibility(View.INVISIBLE);
+        }
 
     }
 
@@ -556,52 +566,62 @@ clicks on correct or incorrect answer*/
         outState.putStringArray("buttonState", buttonState);
         outState.putBoolean("newGridButtonSelected", newGridButtonSelected);
 
-//        ansButton1.setText(Integer.toString(answers.get(0)));
-//        ansButton2.setText(Integer.toString(answers.get(1)));
-//        ansButton3.setText(Integer.toString(answers.get(2)));
-//        msgText.setText(questionString);
-
 
     }
 
 
     public void randomize() {
         questionString = generate.getProblem();
-
+        answers.clear();
         switch ((int) (Math.random() * 3) + 1) {
-            case 1: // first possible order
-                ansButton1.setVisibility(View.INVISIBLE);
-                ansButton1.setText(generate.getFirstRandom());
-                ansButton2.setVisibility(View.INVISIBLE);
-                ansButton2.setText(generate.getSecondRandom());
-                ansButton3.setVisibility(View.INVISIBLE);
-                ansButton3.setText(generate.getRightAnswer());
+            case 1: { // first possible order
+                answers.add(Integer.parseInt(generate.getFirstRandom()));
+                answers.add(Integer.parseInt(generate.getSecondRandom()));
+                correctAnswer = Integer.parseInt(generate.getRightAnswer());
+                answers.add(correctAnswer);
+//                ansButton1.setVisibility(View.INVISIBLE);
+//                ansButton1.setText(generate.getFirstRandom());
+//                ansButton2.setVisibility(View.INVISIBLE);
+//                ansButton2.setText(generate.getSecondRandom());
+//                ansButton3.setVisibility(View.INVISIBLE);
+//                ansButton3.setText(generate.getRightAnswer());
                 break;
-            case 2:
-                ansButton1.setVisibility(View.INVISIBLE);
-                ansButton1.setText(generate.getFirstRandom());
-                ansButton2.setVisibility(View.INVISIBLE);
-                ansButton2.setText(generate.getRightAnswer());
-                ansButton3.setVisibility(View.INVISIBLE);
-                ansButton3.setText(generate.getSecondRandom());
+            }
+            case 2: {
+                answers.add(Integer.parseInt(generate.getFirstRandom()));
+                correctAnswer = Integer.parseInt(generate.getRightAnswer());
+                answers.add(correctAnswer);
+                answers.add(Integer.parseInt(generate.getSecondRandom()));
+//                ansButton1.setVisibility(View.INVISIBLE);
+//                ansButton1.setText(generate.getFirstRandom());
+//                ansButton2.setVisibility(View.INVISIBLE);
+//                ansButton2.setText(generate.getRightAnswer());
+//                ansButton3.setVisibility(View.INVISIBLE);
+//                ansButton3.setText(generate.getSecondRandom());
                 break;
-            case 3:
-                ansButton1.setVisibility(View.INVISIBLE);
-                ansButton1.setText(generate.getRightAnswer());
-                ansButton2.setVisibility(View.INVISIBLE);
-                ansButton2.setText(generate.getSecondRandom());
-                ansButton3.setVisibility(View.INVISIBLE);
-                ansButton3.setText(generate.getFirstRandom());
+            }
+            case 3: {
+                correctAnswer = Integer.parseInt(generate.getRightAnswer());
+                answers.add(correctAnswer);
+                answers.add(Integer.parseInt(generate.getFirstRandom()));
+                answers.add(Integer.parseInt(generate.getSecondRandom()));
+//                ansButton1.setVisibility(View.INVISIBLE);
+//                ansButton1.setText(generate.getRightAnswer());
+//                ansButton2.setVisibility(View.INVISIBLE);
+//                ansButton2.setText(generate.getSecondRandom());
+//                ansButton3.setVisibility(View.INVISIBLE);
+//                ansButton3.setText(generate.getFirstRandom());
                 break;
+            }
         }
 
     }
 
-    public void setAnswerButtonsVisible() {
-        ansButton1.setVisibility(View.VISIBLE);
-        ansButton2.setVisibility(View.VISIBLE);
-        ansButton3.setVisibility(View.VISIBLE);
-    }
+//    public void setAnswerButtonsVisible() {
+//        ansButton1.setVisibility(View.VISIBLE);
+//        ansButton2.setVisibility(View.VISIBLE);
+//        ansButton3.setVisibility(View.VISIBLE);
+//    }
 
 
 }
