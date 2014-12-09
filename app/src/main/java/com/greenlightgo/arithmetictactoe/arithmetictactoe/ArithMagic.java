@@ -48,7 +48,9 @@ public class ArithMagic {
                 break;
 
             case 3:
-                generateDivideQuestion();
+              int[] question = generateDivideQuestion(20);
+                firstNumber = question [0];
+                secondNumber = question[1];
                 answer = firstNumber / secondNumber;
                 min = 0;
                 range = (10 - min) + 1;
@@ -69,8 +71,7 @@ public class ArithMagic {
             randomTwo = (int) (Math.random() * range) + min;
         }
     }
-
-    public int[] generateDivideQuestion() {
+    private int[] generateDivideQuestion(int range) {
         int[] question = { 0, 0 };
         int first, second;
         question[0] = (int) (Math.random() * (range-1));
@@ -79,36 +80,34 @@ public class ArithMagic {
         first = question[0];
         question[1]++;
         second = question[1];
-        if (firstNumber < secondNumber) {
-            temp = firstNumber;
-            firstNumber = secondNumber;
-            secondNumber = temp;
+        if (first < second) {
+            question[0] = second;
+            question[1] = first;
         }
         while (question[0] % question[1] != 0) {
             question[0]--;
         }
-
-        return question ;
+        return question;
     }
 
-    public String getProblem()
-    {
+public String getProblem()
+        {
         return problem;
-    }
+        }
 
-    public String getFirstRandom()
-    {
+public String getFirstRandom()
+        {
         return randomOne+"";
-    }
+        }
 
-    public String getSecondRandom()
-    {
+public String getSecondRandom()
+        {
         return randomTwo+"";
-    }
+        }
 
-    public String getRightAnswer()
-    {
+public String getRightAnswer()
+        {
         return answer+"";
-    }
+        }
 
-}
+        }
