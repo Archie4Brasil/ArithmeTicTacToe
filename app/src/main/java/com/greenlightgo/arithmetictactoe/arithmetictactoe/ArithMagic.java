@@ -1,11 +1,13 @@
 package com.greenlightgo.arithmetictactoe.arithmetictactoe;
 
+import android.widget.Toast;
+
 /**
  * Created by Archie on 12/2/2014.
  * latest update: 15:39 12/2/2014
  */
 public class ArithMagic {
-    private static int firstNumber, secondNumber, randomOne, randomTwo, answer, range, min;
+    private static int firstNumber, secondNumber, randomOne, randomTwo, answer, range, min, temp;
     protected String problem;
 
     public ArithMagic() {
@@ -28,6 +30,11 @@ public class ArithMagic {
                 problem = firstNumber+" + "+secondNumber;
                 break;
             case 1:
+                if (firstNumber < secondNumber){
+                    temp = firstNumber;
+                    firstNumber = secondNumber;
+                    secondNumber = temp;
+                }
                 answer = firstNumber - secondNumber;
                 min = -9;
                 range = (9 - min) + 1;
@@ -39,7 +46,9 @@ public class ArithMagic {
                 range = (100 - min) + 1;
                 problem = firstNumber+" * "+secondNumber;
                 break;
+
             case 3:
+                generateDivideQuestion();
                 answer = firstNumber / secondNumber;
                 min = 0;
                 range = (10 - min) + 1;
@@ -61,6 +70,27 @@ public class ArithMagic {
         }
     }
 
+    public int[] generateDivideQuestion() {
+        int[] question = { 0, 0 };
+        int first, second;
+        question[0] = (int) (Math.random() * (range-1));
+        question[0]++;
+        question[1] = (int) (Math.random() * (range-1));
+        first = question[0];
+        question[1]++;
+        second = question[1];
+        if (firstNumber < secondNumber) {
+            temp = firstNumber;
+            firstNumber = secondNumber;
+            secondNumber = temp;
+        }
+        while (question[0] % question[1] != 0) {
+            question[0]--;
+        }
+
+        return question ;
+    }
+
     public String getProblem()
     {
         return problem;
@@ -80,4 +110,5 @@ public class ArithMagic {
     {
         return answer+"";
     }
+
 }
