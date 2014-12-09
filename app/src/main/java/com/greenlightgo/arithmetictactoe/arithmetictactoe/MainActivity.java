@@ -152,7 +152,7 @@ clicks on correct or incorrect answer*/
 
     public void ansClick(View v) {
         Button bClick = (Button) v;
-
+        newGridButtonSelected = false;
         switch (bClick.getId()) {
             case R.id.answers1: {
                 if (ansButton1.getText().equals(generate.getRightAnswer())) {
@@ -246,6 +246,7 @@ clicks on correct or incorrect answer*/
 
     /*this is to describe the action when user clicks on gird buttons*/
     public void gridClick(View v) {
+        if (newGridButtonSelected) return;
         ImageButton bClick = (ImageButton) v;
         bClick.setActivated(true);
         questionText.setText(generate.getProblem());
