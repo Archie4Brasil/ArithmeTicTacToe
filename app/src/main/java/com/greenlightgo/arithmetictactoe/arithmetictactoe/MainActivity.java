@@ -48,10 +48,11 @@ public class MainActivity extends Activity {
         for (int i = 0; i < 9; i++) {
             buttonState[i] = buttonDefaultColor;
         }
-        drawButtonImages();
+
         if (savedInstanceState == null) {
             randomize();
         }
+        drawButtonImages();
 
 
    /*     ansButton1.setOnClickListener(new View.OnClickListener() {
@@ -267,9 +268,9 @@ clicks on correct or incorrect answer*/
         newGridButtonSelected = buttonState[selectedButtonIndex].equals(buttonDefaultColor);
         if (newGridButtonSelected) {
             buttonState[selectedButtonIndex] = buttonClickColor;
-            drawButtonImages();
 //            setAnswerButtonsVisible();
         }
+        drawButtonImages();
     }
 
 
