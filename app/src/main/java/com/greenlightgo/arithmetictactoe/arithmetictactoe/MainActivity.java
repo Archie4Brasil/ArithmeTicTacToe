@@ -460,10 +460,10 @@ clicks on correct or incorrect answer*/
         buttonClickColor = savedInstanceState.getString("buttonClickColor");
         buttonCorrectAnsColor = savedInstanceState.getString("buttonCorrectAnsColor");
         buttonIncorrectAnsColor = savedInstanceState.getString("buttonIncorrectAnsColor");
-        questionString = savedInstanceState.getString("QuestionString");
+        questionString = savedInstanceState.getString("questionString");
         selectedButtonIndex = savedInstanceState.getInt("selectedButtonIndex");
         correctAnsSelected = savedInstanceState.getBoolean("correctAnsSelected");
-        newGridButtonSelected = savedInstanceState.getBoolean("newGridButtonState");
+        newGridButtonSelected = savedInstanceState.getBoolean("newGridButtonSelected");
         buttonState = savedInstanceState.getStringArray("buttonState");
         drawButtonImages();
 
@@ -566,6 +566,8 @@ clicks on correct or incorrect answer*/
         outState.putString("buttonIncorrectAnsColor", buttonIncorrectAnsColor);
         outState.putStringArray("buttonState", buttonState);
         outState.putBoolean("newGridButtonSelected", newGridButtonSelected);
+        outState.putString("questionString", questionString);
+        outState.putInt("selectedButtonIndex", selectedButtonIndex);
 
 
     }
