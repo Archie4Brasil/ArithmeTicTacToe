@@ -1,6 +1,7 @@
 package com.greenlightgo.arithmetictactoe.arithmetictactoe;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -35,9 +36,11 @@ public class MainActivity extends Activity {
     boolean correctAnsSelected = false;
     private ArithMagic generate;               //calling class of problem generator
     int correctAnswerPosition = 0;
-    int[] buttonColor = new int[9];
+    int[] winnerGrid = new int[9];
     String[] buttonState = new String[9];
-    boolean win = false;
+    Button resetButton;
+    Button endGameButton;
+    int noOfClicks =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +48,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         generate = new ArithMagic();
         answers = new ArrayList<Integer>();
+     //  resetEndGameButton();
         for (int i = 0; i < 9; i++) {
             buttonState[i] = buttonDefaultColor;
+        }
+        for(int i=0;i<winnerGrid.length; i++){
+            winnerGrid[i] =0;
         }
 
         if (savedInstanceState == null) {
@@ -54,81 +61,39 @@ public class MainActivity extends Activity {
         }
         drawButtonImages();
 
+        endGameButton = (Button)findViewById(R.id.endGameButton);
 
-   /*     ansButton1.setOnClickListener(new View.OnClickListener() {
+        endGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                ansButton1 = (Button)view;
-                ansClick();
-
-        ansButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ansButton1 = (Button)view;
-                if (ansButton2.getText().equals(generate.getRightAnswer())){
-                    correctAnswers++;
-                    correctAnsSelected=true;
-                }else
-                {
-                    incorrectAnswers++;
-                    correctAnsSelected =false;
-                }
+            public void onClick(View paramView) {
+                MainActivity.this.finish();
             }
         });
-        ansButton3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ansButton3 = (Button)view;
-                if (ansButton3.getText().equals(generate.getRightAnswer())){
-                    correctAnswers++;
-                    correctAnsSelected=true;
-                }
-                else
-                {
-                    incorrectAnswers++;
-                    correctAnsSelected =false;
-                }
-            }
+        resetButton = (Button) findViewById(R.id.reSetButton);
 
-        });*/
+        resetButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View paramView) {
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
     }
 
-    /*public void ansClick(View v) {
-        Button b=(Button)v;
-
-        switch (b.getId()) {
-            case R.id.answers1: {
-                if (a.getText().equals(generate.getRightAnswer())){
-                    correctAnswers++;
-                    correctAnsSelected=true;
-                }
-                else
-                {
-                    incorrectAnswers++;
-                    correctAnsSelected =false;
-                }
-                break;
-            }
-        if (b.getText().equals(generate.getRightAnswer())){
-            correctAnswers++;
-            correctAnsSelected=true;
-        }else
-        {
-            incorrectAnswers++;
-            correctAnsSelected =false;
-        }
-    }*/
-
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        resetButton.setEnabled(false);
+        endGameButton.setEnabled(false);
+    }
 /* this method is to determine whether user clicks a right or wrong answer when the answer buttons
 are clicked. Calls a method to change the background color of the grid buttons depending on the user
 clicks on correct or incorrect answer*/
 
-
     public void ansClick(View bClick) {
         newGridButtonSelected = false;
-//        Toast.makeText(getApplicationContext(), "" + correctAnswer + " " + ansButton1.getText() + " " + ansButton2.getText() + " " + ansButton3.getText(), Toast.LENGTH_LONG).show();
         switch (bClick.getId()) {
             case R.id.answers1: {
                 if (ansButton1.getText().equals("" + correctAnswer)) {
@@ -164,60 +129,69 @@ clicks on correct or incorrect answer*/
                 break;
             }
         }
-
-//        questionText.setText("Pick another position");
-
         setGridButtonColorAnsOnClick();
         generate.generateNumbers();
         randomize();
 
     }
 
-    public boolean selectWinner() {
-        if ((buttonColor[0] + buttonColor[1] + buttonColor[2] == 3) || (buttonColor[3] + buttonColor[4] + buttonColor[5] == 3) || (buttonColor[6] + buttonColor[7] + buttonColor[8] == 3)) {
+    public void selectWinner() {
+        if (winnerGrid[0] + winnerGrid[1] + winnerGrid[2] == 3) {
             Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        if ((buttonColor[0] + buttonColor[3] + buttonColor[6] == 3) || (buttonColor[1] + buttonColor[4] + buttonColor[7] == 3) || (buttonColor[2] + buttonColor[5] + buttonColor[8] == 3)) {
+            selectWinnerWidgetState();
+        }else{
+        if (winnerGrid[3] + winnerGrid[4] + winnerGrid[5] == 3) {
             Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        if ((buttonColor[0] + buttonColor[4] + buttonColor[8] == 3) || (buttonColor[2] + buttonColor[4] + buttonColor[6] == 3))
-
-        {
+            selectWinnerWidgetState();
+        }else{
+        if (winnerGrid[6] + winnerGrid[7] + winnerGrid[8] == 3) {
             Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        if ((buttonColor[2] + buttonColor[4] + buttonColor[6] == 3) || (buttonColor[2] + buttonColor[4] + buttonColor[6] == 3)) {
+            selectWinnerWidgetState();
+        }else{
+        if (winnerGrid[1] + winnerGrid[4] + winnerGrid[7] == 3) {
             Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
-            return true;
+            selectWinnerWidgetState();
+        }else{
+        if (winnerGrid[2] + winnerGrid[5] + winnerGrid[8] == 3) {
+            Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
+            selectWinnerWidgetState();
+        } else{
+        if (winnerGrid[0] + winnerGrid[3] + winnerGrid[8] == 3) {
+            Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
+            selectWinnerWidgetState();
+        }else{
+        if (winnerGrid[2] + winnerGrid[4] + winnerGrid[6] == 3) {
+            Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
+            selectWinnerWidgetState();
+        }else{
+            if(noOfClicks==9){
+                Toast.makeText(getApplicationContext(), "try again or end the game", Toast.LENGTH_LONG).show();
+                selectWinnerWidgetState();
+            }
         }
-        return false;
+        }
+        }}}}}
     }
 
+    private void selectWinnerWidgetState() {
+        setAllButtonDisable();
+        resetButton.setEnabled(true);
+        endGameButton.setEnabled(true);
+        questionText.setVisibility(View.GONE);
+    }
 
-    /*This method is to assign  indexes from 1 to 9 for   9 grid buttons */
-//    public void buttonSelection() {
-//        if (selectedButtonIndex == 1) {
-//            setGridButtonColor(b1);
-//        } else if (selectedButtonIndex == 2) {
-//            setGridButtonColor(b2);
-//        } else if (selectedButtonIndex == 3) {
-//            setGridButtonColor(b3);
-//        } else if (selectedButtonIndex == 4) {
-//            setGridButtonColor(b4);
-//        } else if (selectedButtonIndex == 5) {
-//            setGridButtonColor(b5);
-//        } else if (selectedButtonIndex == 6) {
-//            setGridButtonColor(b6);
-//        } else if (selectedButtonIndex == 7) {
-//            setGridButtonColor(b7);
-//        } else if (selectedButtonIndex == 8) {
-//            setGridButtonColor(b8);
-//        } else if (selectedButtonIndex == 9) {
-//            setGridButtonColor(b9);
-//        }
-//    }
+    public void setAllButtonDisable()
+    {
+        b1.setEnabled(false);
+        b2.setEnabled(false);
+        b3.setEnabled(false);
+        b4.setEnabled(false);
+        b5.setEnabled(false);
+        b6.setEnabled(false);
+        b7.setEnabled(false);
+        b8.setEnabled(false);
+        b9.setEnabled(false);
+    }
 
 
     /*this is to describe the action when user clicks on gird buttons*/
@@ -273,179 +247,21 @@ clicks on correct or incorrect answer*/
         drawButtonImages();
     }
 
-
-
-        /*ColorDrawable buttonColor = (ColorDrawable) bClick.getBackground();
-        int colorId = buttonColor.getColor();
-        if(colorId == Color.parseColor(buttonDefaultColor)) {
-            switch (bClick.getId()) {
-                case R.id.grid1x1: {
-                    selectedButtonIndex = 0;
-                    break;
-                }
-                case R.id.grid1x2: {
-                    selectedButtonIndex = 1;
-                    break;
-                }
-                case R.id.grid1x3: {
-                    selectedButtonIndex = 2;
-                    break;
-                }
-                case R.id.grid2x1: {
-                    selectedButtonIndex = 3;
-                    break;
-                }
-                case R.id.grid2x2: {
-                    selectedButtonIndex = 4;
-                    break;
-                }
-                case R.id.grid2x3: {
-                    selectedButtonIndex = 5;
-                    break;
-                }
-                case R.id.grid3x1: {
-                    selectedButtonIndex = 6;
-                    break;
-                }
-                case R.id.grid3x2: {
-                    selectedButtonIndex = 7;
-                    break;
-                }
-                case R.id.grid3x3: {
-                    selectedButtonIndex = 8;
-                    break;
-                }
-            }
-        }else
-        {
-            questionText.setText("You have already clicked the button");
-        }
-
-    }*/
-
-    /*This is to set the grid button enabled if it is disable,  or enable if it is disabled*/
-//    public void setButtonEnabledDisabled(Button b) {
-//        if (b.isEnabled())
-//            b.setEnabled(true);
-//        else if (!b.isEnabled())
-//            b.setSaveEnabled(false);
-//
-//    }
-
-
-    /*This method to set the color of grid button  just after clicking on them */
-//    public void setGridButtonColor(ImageButton bClick) {
-//        drawButtonImages();
-//    }
-
     /*This method to set the color of grid button  just after clicking on answer buttons this sets color of the grid button
      * depending on the user clicks on correct answer or wrong answer */
     public void setGridButtonColorAnsOnClick() {
         if (correctAnsSelected) {
             buttonState[selectedButtonIndex] = buttonCorrectAnsColor;
-            buttonColor[selectedButtonIndex] = 1;
+            winnerGrid[selectedButtonIndex] = 1;
+            noOfClicks++;
         } else {
             buttonState[selectedButtonIndex] = buttonIncorrectAnsColor;
+           noOfClicks++;
+
         }
-        win = selectWinner();
-        //   if(win){
-        //     resetButton();
-        // }
+        selectWinner();
         drawButtonImages();
     }
-
-    public void resetButton() {
-        for (int i = 0; i < 9; i++) {
-            if (buttonColor[i] + buttonColor[i + 1] + buttonColor[i + 2] == 3) {
-                if (i == 0) clearGrid(0, 2);
-                if (i == 3) clearGrid(3, 5);
-                if (i == 6) clearGrid(6, 8);
-            }
-            if (buttonColor[i] + buttonColor[i + 1] + buttonColor[i + 2] == 3) {
-                if (i == 0) clearGrid(0, 2);
-                if (i == 3) clearGrid(3, 5);
-                if (i == 6) clearGrid(6, 8);
-            }
-        }
-
-
-        if (buttonColor[0] + buttonColor[3] + buttonColor[6] == 3) clearGrid(0, 6);
-        if (buttonColor[1] + buttonColor[4] + buttonColor[7] == 3) clearGrid(1, 7);
-        if (buttonColor[2] + buttonColor[5] + buttonColor[8] == 3) clearGrid(2, 8);
-        if (buttonColor[0] + buttonColor[4] + buttonColor[8] == 3) clearGrid(0, 8);
-        if (buttonColor[2] + buttonColor[4] + buttonColor[6] == 3) clearGrid(2, 6);
-
-
-    }
-
-    public void clearGrid(int x, int y) {
-        if (x == 0 && y == 2) {
-
-//            b4.setVisibility(View.GONE);
-//            b5.setVisibility(View.GONE);
-//            b6.setVisibility(View.GONE);
-//            b7.setVisibility(View.GONE);
-//            b8.setVisibility(View.GONE);
-//            b9.setVisibility(View.GONE);
-        }
-        if (x == 3 && y == 5) {
-//            b1.setVisibility(View.GONE);
-//            b2.setVisibility(View.GONE);
-//            b3.setVisibility(View.GONE);
-//            b7.setVisibility(View.GONE);
-//            b8.setVisibility(View.GONE);
-//            b9.setVisibility(View.GONE);
-        }
-        if (x == 6 && y == 8) {
-//            b1.setVisibility(View.GONE);
-//            b2.setVisibility(View.GONE);
-//            b3.setVisibility(View.GONE);
-//            b4.setVisibility(View.GONE);
-//            b5.setVisibility(View.GONE);
-//            b6.setVisibility(View.GONE);
-        }
-        if (x == 0 && y == 6) {
-//            b2.setVisibility(View.GONE);
-//            b3.setVisibility(View.GONE);
-//            b5.setVisibility(View.GONE);
-//            b6.setVisibility(View.GONE);
-//            b8.setVisibility(View.GONE);
-//            b9.setVisibility(View.GONE);
-        }
-        if (x == 0 && y == 8) {
-//            b2.setVisibility(View.GONE);
-//            b3.setVisibility(View.GONE);
-//            b6.setVisibility(View.GONE);
-//            b4.setVisibility(View.GONE);
-//            b7.setVisibility(View.GONE);
-//            b8.setVisibility(View.GONE);
-
-        }
-        if (x == 3 && y == 7) {
-//            b1.setVisibility(View.GONE);
-//            b2.setVisibility(View.GONE);
-//            b4.setVisibility(View.GONE);
-//            b6.setVisibility(View.GONE);
-//            b8.setVisibility(View.GONE);
-//            b9.setVisibility(View.GONE);
-        }
-        if (x == 3 && y == 7) {
-//            b1.setVisibility(View.GONE);
-//            b2.setVisibility(View.GONE);
-//            b4.setVisibility(View.GONE);
-//            b6.setVisibility(View.GONE);
-//            b8.setVisibility(View.GONE);
-//            b9.setVisibility(View.GONE);
-        }
-
-
-    }
-
-
-//    public void displayText() {
-//        questionText.setText(questionString);
-//    }
-
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -466,10 +282,6 @@ clicks on correct or incorrect answer*/
         newGridButtonSelected = savedInstanceState.getBoolean("newGridButtonSelected");
         buttonState = savedInstanceState.getStringArray("buttonState");
         drawButtonImages();
-
-//        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
-//        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
-//        ansButton1.setBackgroundResource(android.R.drawable.btn_default);
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -568,10 +380,7 @@ clicks on correct or incorrect answer*/
         outState.putBoolean("newGridButtonSelected", newGridButtonSelected);
         outState.putString("questionString", questionString);
         outState.putInt("selectedButtonIndex", selectedButtonIndex);
-
-
     }
-
 
     public void randomize() {
         questionString = generate.getProblem();
@@ -582,12 +391,6 @@ clicks on correct or incorrect answer*/
                 answers.add(Integer.parseInt(generate.getSecondRandom()));
                 correctAnswer = Integer.parseInt(generate.getRightAnswer());
                 answers.add(correctAnswer);
-//                ansButton1.setVisibility(View.INVISIBLE);
-//                ansButton1.setText(generate.getFirstRandom());
-//                ansButton2.setVisibility(View.INVISIBLE);
-//                ansButton2.setText(generate.getSecondRandom());
-//                ansButton3.setVisibility(View.INVISIBLE);
-//                ansButton3.setText(generate.getRightAnswer());
                 break;
             }
             case 2: {
@@ -595,12 +398,6 @@ clicks on correct or incorrect answer*/
                 correctAnswer = Integer.parseInt(generate.getRightAnswer());
                 answers.add(correctAnswer);
                 answers.add(Integer.parseInt(generate.getSecondRandom()));
-//                ansButton1.setVisibility(View.INVISIBLE);
-//                ansButton1.setText(generate.getFirstRandom());
-//                ansButton2.setVisibility(View.INVISIBLE);
-//                ansButton2.setText(generate.getRightAnswer());
-//                ansButton3.setVisibility(View.INVISIBLE);
-//                ansButton3.setText(generate.getSecondRandom());
                 break;
             }
             case 3: {
@@ -608,23 +405,12 @@ clicks on correct or incorrect answer*/
                 answers.add(correctAnswer);
                 answers.add(Integer.parseInt(generate.getFirstRandom()));
                 answers.add(Integer.parseInt(generate.getSecondRandom()));
-//                ansButton1.setVisibility(View.INVISIBLE);
-//                ansButton1.setText(generate.getRightAnswer());
-//                ansButton2.setVisibility(View.INVISIBLE);
-//                ansButton2.setText(generate.getSecondRandom());
-//                ansButton3.setVisibility(View.INVISIBLE);
-//                ansButton3.setText(generate.getFirstRandom());
                 break;
             }
         }
 
     }
 
-//    public void setAnswerButtonsVisible() {
-//        ansButton1.setVisibility(View.VISIBLE);
-//        ansButton2.setVisibility(View.VISIBLE);
-//        ansButton3.setVisibility(View.VISIBLE);
-//    }
 
 
 }
