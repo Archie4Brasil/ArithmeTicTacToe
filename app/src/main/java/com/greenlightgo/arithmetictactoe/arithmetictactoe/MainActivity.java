@@ -156,11 +156,15 @@ clicks on correct or incorrect answer*/
             Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
             selectWinnerWidgetState();
         } else{
-        if (winnerGrid[0] + winnerGrid[3] + winnerGrid[8] == 3) {
+        if (winnerGrid[0] + winnerGrid[3] + winnerGrid[6] == 3) {
             Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
             selectWinnerWidgetState();
         }else{
         if (winnerGrid[2] + winnerGrid[4] + winnerGrid[6] == 3) {
+            Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
+            selectWinnerWidgetState();
+        }else{
+         if (winnerGrid[0] + winnerGrid[4] + winnerGrid[8] == 3) {
             Toast.makeText(getApplicationContext(), "You won the game", Toast.LENGTH_LONG).show();
             selectWinnerWidgetState();
         }else{
@@ -170,7 +174,7 @@ clicks on correct or incorrect answer*/
             }
         }
         }
-        }}}}}
+        }}}}}}
     }
 
     private void selectWinnerWidgetState() {
