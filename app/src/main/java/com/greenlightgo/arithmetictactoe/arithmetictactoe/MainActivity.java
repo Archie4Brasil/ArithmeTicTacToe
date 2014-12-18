@@ -269,6 +269,7 @@ clicks on correct or incorrect answer*/
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
         number1 = savedInstanceState.getInt("number1");
         number2 = savedInstanceState.getInt("number2");
         correctAnswer = savedInstanceState.getInt("correctAnswer");
@@ -285,8 +286,9 @@ clicks on correct or incorrect answer*/
         correctAnsSelected = savedInstanceState.getBoolean("correctAnsSelected");
         newGridButtonSelected = savedInstanceState.getBoolean("newGridButtonSelected");
         buttonState = savedInstanceState.getStringArray("buttonState");
+        noOfClicks = savedInstanceState.getInt("noOfClicks");
+        winnerGrid = savedInstanceState.getIntArray("winnerGrid");
         drawButtonImages();
-        super.onRestoreInstanceState(savedInstanceState);
     }
 
     void drawButtonImages() {
@@ -384,6 +386,8 @@ clicks on correct or incorrect answer*/
         outState.putBoolean("newGridButtonSelected", newGridButtonSelected);
         outState.putString("questionString", questionString);
         outState.putInt("selectedButtonIndex", selectedButtonIndex);
+        outState.putInt("noOfClicks", noOfClicks);
+        outState.putIntArray("winnerGrid", winnerGrid);
     }
 
     public void randomize() {
