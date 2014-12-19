@@ -1,4 +1,4 @@
-package com.greenlightgo.arithmetictactoe.arithmetictactoe;
+package com.greenlightgo.arithmetictactoe.mathtictactoe;
 
 /**
  * Created by Grand on 12/5/2014.

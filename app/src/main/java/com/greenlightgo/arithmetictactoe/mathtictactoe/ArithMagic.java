@@ -1,6 +1,4 @@
-package com.greenlightgo.arithmetictactoe.arithmetictactoe;
-
-import android.widget.Toast;
+package com.greenlightgo.arithmetictactoe.mathtictactoe;
 
 /**
  * Created by Archie on 12/2/2014.

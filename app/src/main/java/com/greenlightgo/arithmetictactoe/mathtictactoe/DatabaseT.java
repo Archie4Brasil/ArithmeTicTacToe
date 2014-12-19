@@ -1,4 +1,4 @@
-package com.greenlightgo.arithmetictactoe.arithmetictactoe;
+package com.greenlightgo.arithmetictactoe.mathtictactoe;
 
 import android.content.ContentValues;
 import android.content.Context;
